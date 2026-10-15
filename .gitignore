@@ -1,0 +1,42 @@
+# --- Hasil antara pembuatan PDF (HTML sementara) ---
+proyek/.pdf-build/
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# --- Sistem operasi dan editor ---
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*~
+.idea/
+.vscode/
+
+# --- File kunci sementara Office / LibreOffice (muncul saat .docx sedang dibuka) ---
+~$*
+.~lock.*#
+
+# --- Data riset mentah: JANGAN masuk repo ---
+# Rekaman wawancara/observasi dan data mentah bisa berisi data pribadi (pasien, staf, pelanggan mitra).
+# Simpan di drive tim yang aksesnya terbatas; di repo cukup catatan yang sudah dianonimkan.
+*.mp3
+*.m4a
+*.wav
+*.ogg
+*.mp4
+*.mov
+proyek/*/data-mentah/
+proyek/*/rekaman/
+
+# --- Rahasia ---
+.env
+*.key
+credentials*.json
+
+# --- Opsional: aktifkan bila repo PUBLIK (lihat README, bagian "Privasi") ---
+# referensi/SOSIALISASI UMS HEALTH INNOVATION HACKATHON 2026.txt
+# referensi/Google UX Design Professional Certificate.md
