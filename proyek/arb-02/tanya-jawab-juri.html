@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Tanya Jawab Juri ArbaSync</title>
+<style>
+@font-face { font-family: "Tahoma"; src: url("Tahoma-regular.ttf"); font-weight: normal; }
+@font-face { font-family: "Tahoma"; src: url("Tahoma-bold.ttf"); font-weight: bold; }
+:root { --ink:#1d2733; --muted:#5b6672; --line:#c3ccd5; --soft:#eef3f7; --accent:#1f6fa8; --accent-soft:#cae9f7;
+  --warn:#6b5000; --warn-soft:#fff4d6; --bad:#b03a2e; --bad-soft:#fbe3e0; }
+@page { size: A4; margin: 2cm 2.2cm 1.8cm;
+  @bottom-left { content: "ArbaSync · Persiapan tanya jawab juri · Internal tim Antech Async"; font: 7.5pt Tahoma; color: #5b6672; }
+  @bottom-right { content: "hlm. " counter(page) " / " counter(pages); font: 7.5pt Tahoma; color: #5b6672; } }
+* { box-sizing: border-box; }
+body { font-family: Tahoma, sans-serif; font-size: 9.5pt; line-height: 1.4; color: var(--ink); margin: 0; background: #fff; }
+h1 { font-size: 15pt; margin: 0 0 2px; }
+.sub { color: var(--muted); font-size: 8.5pt; margin-bottom: 10px; }
+h2 { font-size: 11pt; background: var(--accent-soft); border-left: 4px solid var(--accent); padding: 4px 8px; margin: 16px 0 8px; page-break-after: avoid; }
+h2 small { font-weight: normal; color: var(--muted); font-size: 8pt; }
+p { margin: 0 0 5px; }
+ul { margin: 2px 0 4px 16px; padding: 0; }
+li { margin-bottom: 2px; }
+.box { border: 1px solid var(--line); border-radius: 4px; padding: 6px 9px; margin-bottom: 8px; background: var(--soft); }
+.box.warn { background: var(--warn-soft); border-color: #e2c675; }
+.box h3 { margin: 0 0 4px; font-size: 9.5pt; }
+.qa { border: 1px solid var(--line); border-radius: 4px; margin-bottom: 7px; page-break-inside: avoid; }
+.q { background: var(--soft); padding: 4px 8px; font-weight: bold; border-bottom: 1px solid var(--line); }
+.q .n { color: var(--accent); margin-right: 4px; }
+.q .pj { float: right; font-weight: normal; font-size: 7.5pt; color: var(--muted); }
+.a { padding: 5px 8px; }
+.lbl { display: inline-block; font-size: 7pt; font-weight: bold; padding: 0 5px; border-radius: 6px; margin-right: 4px; }
+.l-ans { background: var(--accent-soft); color: #0d4a73; }
+.l-more { background: #e1f2e7; color: #2e7d4f; }
+.l-trap { background: var(--bad-soft); color: var(--bad); }
+.trap { font-size: 8.5pt; color: #6b2a22; margin-top: 3px; }
+.more { font-size: 8.8pt; margin-top: 3px; }
+table { border-collapse: collapse; width: 100%; font-size: 8.5pt; }
+th, td { border: 1px solid var(--line); padding: 3px 6px; text-align: left; vertical-align: top; }
+th { background: var(--soft); }
+</style>
+</head>
+<body>
+
+<h1>Persiapan Tanya Jawab Juri — ArbaSync (ARB-02)</h1>
+<div class="sub">Tim Antech Async · UMS Health Innovation Hackathon 2026 · disusun 19 Oktober 2026 · dokumen internal, bukan bagian proposal</div>
+
+<div class="box">
+<h3>Cara memakai dokumen ini</h3>
+<ul>
+<li>Setiap pertanyaan punya <span class="lbl l-ans">JAWABAN</span> singkat (±30 detik, cukup untuk sesi tanya jawab) dan <span class="lbl l-more">JIKA DIKEJAR</span> berisi poin cadangan bila juri bertanya lebih dalam.</li>
+<li><span class="lbl l-trap">HINDARI</span> menandai jawaban yang terdengar wajar tetapi melemahkan posisi tim.</li>
+<li>Kolom kanan atas tiap pertanyaan menunjukkan anggota yang paling tepat menjawab: <b>PS</b> Purwo Setiawan · <b>RR</b> Ridwan Renaldi · <b>MH</b> Muhammad Hammam Islami · <b>RZ</b> Reza.</li>
+<li>Angka bertanda "target" belum diukur. Jangan menyebutnya sebagai hasil.</li>
+</ul>
+</div>
+
+<div class="box warn">
+<h3>Lima pertanyaan yang paling mungkin muncul (latih sampai lancar)</h3>
+<ul>
+<li><b>No. 9</b> Kenapa tidak memakai Odoo, Qontak, atau aplikasi kasir UMKM saja?</li>
+<li><b>No. 2</b> Apa bukti masalah ini nyata? Sudah bicara dengan mitra?</li>
+<li><b>No. 11</b> Di mana sisi <i>deeptech</i>-nya? Bukankah ini hanya aplikasi CRUD?</li>
+<li><b>No. 6</b> Bagaimana jika dua sales menjual stok terakhir saat sama-sama offline?</li>
+<li><b>No. 20</b> Setelah program selesai, siapa yang memelihara sistem dan siapa yang membayar?</li>
+</ul>
+</div>
+
+<h2>A. Masalah dan pengguna <small>· Kesesuaian masalah dan solusi (20%)</small></h2>
+
+<div class="qa"><div class="q"><span class="n">1.</span>Jelaskan masalah mitra dalam satu kalimat.<span class="pj">PS</span></div><div class="a">
+<p><span class="lbl l-ans">JAWABAN</span>Data pelanggan, aktivitas sales, dan stok CV Arba'in tercatat terpisah di buku dan chat, sehingga riwayat outlet sulit ditelusuri, kinerja sales tidak terpantau, dan stok di catatan tidak sama dengan isi gudang.</p>
+<div class="more"><span class="lbl l-more">JIKA DIKEJAR</span>Dampaknya disampaikan mitra sendiri saat sosialisasi 7 Oktober: layanan terlambat, peluang penjualan terlewat, dan risiko kehabisan atau kelebihan stok. Kami menambahkan satu temuan dari situs mitra: semua calon pelanggan diarahkan ke satu nomor WhatsApp tanpa basis data.</div>
+</div></div>
+
+<div class="qa"><div class="q"><span class="n">2.</span>Apa bukti masalah ini nyata? Sudah wawancara dengan mitra?<span class="pj">RZ</span></div><div class="a">
+<p><span class="lbl l-ans">JAWABAN</span>Belum. Bukti kami saat ini adalah paparan langsung perwakilan CV Arba'in pada sosialisasi, laman tantangan resmi, dan pengamatan situs mitra. Kami menulisnya terus terang di proposal sebagai sumber sekunder. Wawancara, ikut kunjungan satu sales, dan pengukuran baseline adalah kegiatan pertama kami pada 26 Oktober – 4 November.</p>
+<div class="more"><span class="lbl l-more">JIKA DIKEJAR</span>Yang akan kami ukur: berapa detik sales mencatat satu pesanan sekarang, berapa selisih stok catatan vs fisik, berapa sales, outlet aktif, dan SKU. Tanpa baseline ini, target "selisih stok turun ≥ 50%" belum bisa dibuktikan, dan kami menyadarinya.</div>
+<div class="trap"><span class="lbl l-trap">HINDARI</span>Mengaku sudah tervalidasi atau mengarang angka. Juri bisa mengecek ke mitra.</div>
+</div></div>
+
+<div class="qa"><div class="q"><span class="n">3.</span>Siapa pengguna utamanya, dan siapa yang paling diuntungkan?<span class="pj">RZ</span></div><div class="a">
+<p><span class="lbl l-ans">JAWABAN</span>Empat pengguna: sales lapangan (ponsel), admin gudang, admin penjualan (desktop), dan direksi. Pengguna kunci adalah sales, karena seluruh data berasal dari mereka. Kalau sales enggan mengisi, sistem gagal. Karena itu desain kami berpusat pada kecepatan input sales: tiga ketukan untuk pesanan ulang.</p>
+<div class="more"><span class="lbl l-more">JIKA DIKEJAR</span>Yang paling merasakan manfaat langsung adalah direksi (laporan otomatis) dan admin gudang (stok berkurang sendiri, peringatan stok menipis). Sales mendapat manfaat dari daftar kunjungan berprioritas dan kepastian stok sebelum menjanjikan barang ke outlet.</div>
+</div></div>
+
+<div class="qa"><div class="q"><span class="n">4.</span>Apakah sinyal di lapangan benar-benar masalah? Solo kan kota.<span class="pj">RR</span></div><div class="a">
+<p><span class="lbl l-ans">JAWABAN</span>Batasan "jaringan seluler tidak stabil, pertimbangkan mode offline" ditulis oleh mitra sendiri di laman tantangan. Rute sales juga tidak hanya di pusat kota. Akan tetapi, besaran masalahnya memang perlu kami ukur saat ikut kunjungan sales.</p>
+<div class="more"><span class="lbl l-more">JIKA DIKEJAR</span>Offline-first tetap bermanfaat meski sinyal ada: aplikasi terbuka instan karena data di ponsel, tidak ada layar "memuat", dan tidak ada data hilang saat sinyal putus di tengah pengiriman. Jadi ini juga soal kecepatan dan keandalan, bukan hanya daerah tanpa sinyal.</div>
+</div></div>
+
+<h2>B. Teknologi dan cara kerja <small>· Kesesuaian tema dan kedalaman teknologi (22%)</small></h2>
+
+<div class="qa"><div class="q"><span class="n">5.</span>Bagaimana aplikasi tetap jalan tanpa internet?<span class="pj">RR</span></div><div class="a">
+<p><span class="lbl l-ans">JAWABAN</span>Tiga lapis. <i>Service worker</i> menyimpan aplikasi di ponsel sehingga bisa dibuka tanpa sinyal. IndexedDB menyimpan data yang dibutuhkan sales hari itu: outlet, katalog, stok, dan jatah. Setiap tindakan sales masuk ke <i>outbox</i> lalu dikirim otomatis saat sinyal kembali.</p>
+<div class="more"><span class="lbl l-more">JIKA DIKEJAR</span>Setiap data diberi ID unik (UUID) sejak dibuat di ponsel, dan API server bersifat idempoten. Jika pengiriman terulang karena jaringan putus-sambung, server mengenali UUID yang sama dan tidak mencatat ganda. Data baru dihapus dari outbox setelah server mengonfirmasi penerimaan.</div>
+</div></div>
+
+<div class="qa"><div class="q"><span class="n">6.</span>Bagaimana jika dua sales menjual stok terakhir saat sama-sama offline?<span class="pj">RR</span></div><div class="a">
+<p><span class="lbl l-ans">JAWABAN</span>Ini kasus inti yang kami rancang. Lapis pertama, <b>jatah stok</b>: setiap pagi sistem membagi stok gudang ke tiap sales sesuai perkiraan kebutuhan rutenya, sehingga pesanan dalam jatah dijamin aman. Lapis kedua: pesanan di luar jatah diputuskan server saat sinkron. Jika stok tidak cukup, pesanan dipenuhi sebagian dan sisanya menjadi <i>backorder</i>, lalu sales dan admin gudang diberi tahu.</p>
+<div class="more"><span class="lbl l-more">JIKA DIKEJAR</span>Kami tidak menjanjikan konflik hilang sama sekali. Itu mustahil tanpa koneksi. Yang kami janjikan: konflik terdeteksi, tidak ada data hilang, dan semua pihak tahu. Skenario ini menjadi bagian demo dengan dua ponsel dalam mode pesawat.</div>
+</div></div>
+
+<div class="qa"><div class="q"><span class="n">7.</span>Apa itu "buku besar stok", dan kenapa tidak menyimpan angka stok biasa?<span class="pj">RR</span></div><div class="a">
+<p><span class="lbl l-ans">JAWABAN</span>Kami mencatat setiap pergerakan stok (masuk produksi, dipesan, dikirim, penyesuaian opname), bukan menimpa satu angka. Stok adalah jumlah semua pergerakan. Karena penjumlahan tidak bergantung urutan, data dari banyak ponsel offline bisa digabung kapan pun tanpa saling menimpa.</p>
+<div class="more"><span class="lbl l-more">JIKA DIKEJAR</span>Bonusnya: setiap selisih punya jejak audit (siapa, kapan, alasan), yang menjawab indikator mitra "akurasi stok meningkat". Karena setiap baris membawa nomor batch, kami juga bisa melacak batch sampai ke outlet. Pola ini dikenal sebagai <i>event sourcing</i> (Fowler).</div>
+</div></div>
+
+<div class="qa"><div class="q"><span class="n">8.</span>Model prediksinya apa? Datanya dari mana kalau mitra belum punya riwayat digital?<span class="pj">PS</span></div><div class="a">
+<p><span class="lbl l-ans">JAWABAN</span>Kami sengaja memulai dengan metode sederhana yang bisa dijelaskan: <i>exponential smoothing</i> atas interval pesan ulang tiap outlet dan SKU. Di awal, kami memakai data dummy dari mitra dan impor catatan lama dari spreadsheet. Akurasinya naik seiring transaksi tercatat.</p>
+<div class="more"><span class="lbl l-more">JIKA DIKEJAR</span>Outlet baru memakai rata-rata outlet sejenis. Sistem selalu menampilkan alasan prioritas ("waktunya pesan ulang", "piutang jatuh tempo"), jadi sales tetap bisa menilai sendiri walau prediksi belum akurat. Model yang lebih kompleks hanya masuk akal setelah data cukup, dan akurasinya akan kami ukur dengan galat rata-rata pada data riwayat.</div>
+<div class="trap"><span class="lbl l-trap">HINDARI</span>Menyebut "AI/machine learning canggih". Juri akan bertanya data latihnya, dan jawabannya belum ada.</div>
+</div></div>
+
+<h2>C. Inovasi dan pembanding <small>· Inovasi dan kelayakan rancangan (28%)</small></h2>
+
+<div class="qa"><div class="q"><span class="n">9.</span>Kenapa tidak memakai Odoo, Qontak, atau aplikasi kasir UMKM saja?<span class="pj">MH</span></div><div class="a">
+<p><span class="lbl l-ans">JAWABAN</span>Sistem siap pakai dirancang untuk penjualan umum. CV Arba'in punya tiga kebutuhan yang jarang ditemukan bersama dalam satu alur sederhana: pencatatan sales di lapangan yang tetap jalan tanpa sinyal, stok yang bisa ditelusuri per batch sampai ke outlet karena mereka produsen ber-CPOTB, dan pembagian jatah stok agar janji sales tetap aman saat offline.</p>
+<div class="more"><span class="lbl l-more">JIKA DIKEJAR</span>Kami jujur: Odoo punya pelacakan lot dan strategi kedaluwarsa di modul gudangnya, dan Qontak kuat di WhatsApp. Pembeda kami bukan satu fitur, melainkan <b>kombinasi</b> fitur yang dirancang untuk sales lapangan UMKM herbal dengan antarmuka yang jauh lebih sederhana. Satu lagi: tidak ada biaya lisensi per pengguna, dan data tersimpan di server lokal.</div>
+<div class="trap"><span class="lbl l-trap">HINDARI</span>Berkata "Odoo tidak bisa X" tanpa mengecek. Juri bisa saja pengguna Odoo. Juga hindari argumen tunggal "mitra harus belajar sistem baru", karena sistem kami pun perlu dipelajari.</div>
+</div></div>
+
+<div class="qa"><div class="q"><span class="n">10.</span>Apa yang benar-benar baru di sini?<span class="pj">RR</span></div><div class="a">
+<p><span class="lbl l-ans">JAWABAN</span>Teknologinya sendiri (PWA, IndexedDB, peramalan) sudah matang, dan itu disengaja demi kelayakan. Kebaruannya ada pada <b>penerapan gabungan</b> untuk masalah ini: jatah stok prediktif yang membuat transaksi offline aman, digabung dengan buku besar stok ber-batch yang bisa disatukan dari banyak perangkat sekaligus memberi ketertelusuran produk kesehatan sampai ke outlet.</p>
+<div class="more"><span class="lbl l-more">JIKA DIKEJAR</span>Di sinilah pertemuan bidang tim: rekayasa perangkat lunak (sinkronisasi offline) dan Teknik Industri (manajemen persediaan dan peramalan). Jatah stok pada dasarnya adalah masalah alokasi persediaan dalam kondisi informasi tertunda.</div>
+</div></div>
+
+<div class="qa"><div class="q"><span class="n">11.</span>Ini hackathon <i>deeptech</i>. Bukankah ini hanya aplikasi CRUD?<span class="pj">RR</span></div><div class="a">
+<p><span class="lbl l-ans">JAWABAN</span>Bagian CRUD-nya, yaitu data outlet dan produk, memang biasa, dan kami tidak menjualnya sebagai inovasi. Kedalaman teknisnya ada di tiga tempat yang sulit: sinkronisasi offline yang aman dari duplikasi dan konflik, buku besar stok yang konsisten saat data datang tidak berurutan, serta alokasi jatah berbasis peramalan.</p>
+<div class="more"><span class="lbl l-more">JIKA DIKEJAR</span>Sinkronisasi multi-perangkat dengan konflik adalah topik riset aktif (<i>local-first software</i>, Kleppmann dkk., 2019). Bukti yang akan kami tunjukkan saat demo: dua ponsel offline mengubah stok yang sama, lalu tersinkron tanpa duplikasi dan tanpa data hilang.</div>
+</div></div>
+
+<div class="qa"><div class="q"><span class="n">12.</span>Apa kaitannya dengan kesehatan? Ini kan sistem penjualan.<span class="pj">PS</span></div><div class="a">
+<p><span class="lbl l-ans">JAWABAN</span>Produk mitra adalah produk kesehatan herbal (madu, propolis, herbal) yang diproduksi dengan standar CPOTB-BPOM dan dijual ke apotek dan toko obat. Ketertelusuran batch dan pengiriman berdasarkan tanggal kedaluwarsa (FEFO) memastikan produk yang sampai ke apotek tidak kedaluwarsa, dan jika ada masalah mutu, batch yang bermasalah bisa langsung dilacak ke outlet penerimanya.</p>
+</div></div>
+
+<h2>D. Kelayakan dan risiko</h2>
+
+<div class="qa"><div class="q"><span class="n">13.</span>Apa yang bisa selesai dalam 3 hari hackathon?<span class="pj">RR</span></div><div class="a">
+<p><span class="lbl l-ans">JAWABAN</span>Fungsi inti: check-in dan pesanan offline, sinkronisasi dengan outbox dan UUID, buku besar stok dengan penanganan konflik dasar (backorder), dan dasbor direksi. Batch/FEFO penuh, jatah stok prediktif, dan impor data dikerjakan pada Desember sesuai rencana.</p>
+<div class="more"><span class="lbl l-more">JIKA DIKEJAR</span>Kami menyiapkan rencana cadangan: video demo dan data dummy yang sudah dimuat, agar demo tetap berjalan meski Wi-Fi lokasi bermasalah. Tim terdiri dari dua praktisi yang sudah membangun beberapa sistem informasi produksi.</div>
+</div></div>
+
+<div class="qa"><div class="q"><span class="n">14.</span>Bagaimana kalau sales tidak mau memakai aplikasinya?<span class="pj">RZ</span></div><div class="a">
+<p><span class="lbl l-ans">JAWABAN</span>Ini risiko adopsi terbesar, jadi kami menurunkan beban sales seminimal mungkin: pesanan ulang dalam tiga ketukan, tanpa mengetik, tanpa harus ada sinyal. Aplikasi juga memberi sales sesuatu yang mereka butuhkan, yaitu daftar outlet yang paling perlu dikunjungi dan kepastian stok sebelum berjanji.</p>
+<div class="more"><span class="lbl l-more">JIKA DIKEJAR</span>Kami akan mengukurnya lewat uji tugas dan kuesioner SUS (target ≥ 70) sebelum pilot. Pada tahap pilot, kepatuhan input dibandingkan antar-sales, dan antarmuka diperbaiki berdasarkan keluhan nyata.</div>
+</div></div>
+
+<div class="qa"><div class="q"><span class="n">15.</span>Bagaimana jika ponsel sales hilang atau datanya terhapus sebelum sinkron?<span class="pj">RR</span></div><div class="a">
+<p><span class="lbl l-ans">JAWABAN</span>Data hanya berisiko selama belum terkirim. Outbox dikirim otomatis setiap kali sinyal tersedia, dan kami meminta penyimpanan permanen ke peramban agar data tidak dihapus saat memori ponsel penuh. Layar "Antrean kirim" selalu menunjukkan apa yang belum terkirim.</p>
+<div class="more"><span class="lbl l-more">JIKA DIKEJAR</span>Akses aplikasi memakai login per sales, dan admin bisa mencabut akses perangkat yang hilang. Data yang tersimpan di ponsel hanya data rute sales itu, bukan seluruh basis data.</div>
+</div></div>
+
+<div class="qa"><div class="q"><span class="n">16.</span>PWA di iPhone kan terbatas?<span class="pj">RR</span></div><div class="a">
+<p><span class="lbl l-ans">JAWABAN</span>Benar, sinkronisasi latar belakang (Background Sync) hanya tersedia di peramban berbasis Chromium. Di iPhone, sinkronisasi berjalan saat aplikasi dibuka, sehingga datanya tetap aman tetapi terkirim sedikit lebih lambat. Kami menyebut batasan ini di proposal.</p>
+<div class="more"><span class="lbl l-more">JIKA DIKEJAR</span>Jenis ponsel sales akan kami cek saat validasi. Bila ternyata banyak yang memakai iPhone, sinkronisasi juga dipicu setiap kali sales membuka atau berpindah layar.</div>
+</div></div>
+
+<div class="qa"><div class="q"><span class="n">17.</span>Bagaimana memindahkan data lama dari buku dan spreadsheet?<span class="pj">MH</span></div><div class="a">
+<p><span class="lbl l-ans">JAWABAN</span>Kami menyediakan templat spreadsheet untuk outlet, produk, dan stok awal, lalu fitur impor di dasbor. Sebelum mulai, perlu satu kali <i>stock opname</i> agar stok awal di sistem sama dengan isi gudang.</p>
+<div class="more"><span class="lbl l-more">JIKA DIKEJAR</span>Katalog awal bisa disusun dari 16 produk grosir di situs mitra sambil menunggu data resmi. Riwayat transaksi lama yang masih di buku tidak wajib dipindah seluruhnya. Cukup 2–3 bulan terakhir untuk memulai prediksi.</div>
+</div></div>
+
+<div class="qa"><div class="q"><span class="n">18.</span>Kenapa targetnya "≤ 15 detik" dan "selisih stok turun ≥ 50%"? Dasarnya apa?<span class="pj">PS</span></div><div class="a">
+<p><span class="lbl l-ans">JAWABAN</span>Mitra meminta pencatatan "dalam hitungan detik". Kami menerjemahkannya menjadi angka yang bisa diuji: 15 detik untuk pesanan ulang dengan tiga ketukan. Angka 50% adalah target awal yang akan dikalibrasi setelah baseline selisih stok terukur pada tahap validasi.</p>
+<div class="trap"><span class="lbl l-trap">HINDARI</span>Membela angka 50% seolah berbasis data. Akui sebagai target yang akan dikalibrasi.</div>
+</div></div>
+
+<h2>E. Hilirisasi dan bisnis <small>· Rencana hilirisasi dan dampak (20%)</small></h2>
+
+<div class="qa"><div class="q"><span class="n">19.</span>Bagaimana sistem ini sampai benar-benar dipakai mitra?<span class="pj">MH</span></div><div class="a">
+<p><span class="lbl l-ans">JAWABAN</span>Bertahap: validasi alur (Okt–Nov), purwarupa saat hackathon, penyempurnaan (Des), uji pengguna (Jan), pilot harian oleh sales dan gudang (Feb–Mar), lalu kesepakatan lanjut pakai atau MoU pada April 2027. Setiap tahap punya ukuran keberhasilan yang jelas.</p>
+</div></div>
+
+<div class="qa"><div class="q"><span class="n">20.</span>Setelah program selesai, siapa yang memelihara dan siapa yang membayar?<span class="pj">MH</span></div><div class="a">
+<p><span class="lbl l-ans">JAWABAN</span>Selama pendampingan sampai April 2027, tim yang memelihara. Setelah itu kami usulkan model langganan bulanan untuk biaya server dan dukungan, dengan CV Arba'in sebagai pengguna pertama. Skema dan besaran biayanya kami susun bersama mitra saat pilot.</p>
+<div class="more"><span class="lbl l-more">JIKA DIKEJAR</span>Biaya operasional utamanya hanya server. Aplikasi berjalan di peramban dan tidak perlu toko aplikasi. Semua komponen sumber terbuka, jadi tidak ada lisensi per pengguna. Kode dan dokumentasi diserahkan agar mitra tidak terkunci pada satu vendor.</div>
+<div class="trap"><span class="lbl l-trap">HINDARI</span>Menyebut harga langganan pasti sebelum menghitung biaya nyata. Sebut "disusun bersama mitra saat pilot".</div>
+</div></div>
+
+<div class="qa"><div class="q"><span class="n">21.</span>Apakah bisa dipakai perusahaan lain? Seberapa besar pasarnya?<span class="pj">MH</span></div><div class="a">
+<p><span class="lbl l-ans">JAWABAN</span>Ya. Pola masalahnya (produsen atau distributor UMKM dengan sales lapangan ke apotek, toko obat, dan minimarket) umum di industri herbal dan jamu. Rencana kami: replikasi ke 2–3 UMKM herbal di Solo Raya setelah pilot berhasil.</p>
+<div class="more"><span class="lbl l-more">JIKA DIKEJAR</span>Kami belum punya angka ukuran pasar yang tervalidasi dan tidak akan mengarangnya. Yang bisa kami sebut: satu mitra nyata dengan masalah terdokumentasi, dan keterkaitan dengan ekosistem UMS (CV Arba'in sudah bermitra dengan produk riset UMS di iHub).</div>
+</div></div>
+
+<div class="qa"><div class="q"><span class="n">22.</span>Bagaimana dengan tantangan ARB-01 (agen AI pemasaran) dari mitra yang sama?<span class="pj">MH</span></div><div class="a">
+<p><span class="lbl l-ans">JAWABAN</span>Kami fokus pada ARB-02, tetapi rancangannya terbuka untuk disambungkan. Prospek yang masuk lewat WhatsApp dan situs bisa dicatat ke CRM, dan data stok serta katalog dari ArbaSync bisa menjadi sumber jawaban agen AI. Ini masuk rencana lanjutan.</p>
+</div></div>
+
+<h2>F. Kekayaan intelektual, komponen lokal, dan regulasi</h2>
+
+<div class="qa"><div class="q"><span class="n">23.</span>Apa yang bisa didaftarkan sebagai kekayaan intelektual?<span class="pj">MH</span></div><div class="a">
+<p><span class="lbl l-ans">JAWABAN</span>Hak cipta program komputer untuk aplikasi dan dasbor, beserta dokumen rancangan sinkronisasi buku besar dan algoritma jatah stok. Pengajuannya bersama Sentra KI UMS pada tahap hilirisasi. Pembagian kepemilikan dengan mitra akan mengikuti ketentuan program, yang akan kami konfirmasi ke panitia.</p>
+</div></div>
+
+<div class="qa"><div class="q"><span class="n">24.</span>Apa komponen lokalnya?<span class="pj">PS</span></div><div class="a">
+<p><span class="lbl l-ans">JAWABAN</span>Seluruh perangkat lunak dikembangkan tim dalam negeri, di-hosting di server lokal (VPS dalam negeri atau server UMS), berbahasa Indonesia, dan memakai satuan dagang yang dipakai mitra (dus, pak, pcs) serta alur distribusi UMKM lokal.</p>
+</div></div>
+
+<div class="qa"><div class="q"><span class="n">25.</span>Bagaimana dengan keamanan dan pelindungan data pelanggan?<span class="pj">PS</span></div><div class="a">
+<p><span class="lbl l-ans">JAWABAN</span>Data yang dikelola adalah data bisnis outlet (nama usaha, alamat, kontak, transaksi), bukan data medis. Kami tetap menerapkan prinsip UU Pelindungan Data Pribadi: akses berbasis peran (sales hanya melihat outlet di rutenya), koneksi terenkripsi (HTTPS), log akses, dan server di dalam negeri.</p>
+<div class="more"><span class="lbl l-more">JIKA DIKEJAR</span>Data yang tersimpan di ponsel dibatasi pada rute sales tersebut, dan akses perangkat bisa dicabut dari dasbor admin.</div>
+</div></div>
+
+<h2>G. Tim dan mitra</h2>
+
+<div class="qa"><div class="q"><span class="n">26.</span>Kenapa tim ini yang tepat untuk masalah ini?<span class="pj">PS</span></div><div class="a">
+<p><span class="lbl l-ans">JAWABAN</span>Masalah ini setengahnya rekayasa perangkat lunak, setengahnya manajemen persediaan. Ketua dari Teknik Industri menangani proses distribusi, persediaan, dan peramalan. Dua praktisi sudah membangun sistem informasi yang berjalan (SPADA UMS, SIPAS, SIHRD, APPLES, MyAudit), dan tim sudah terbiasa membuat CRM. Mahasiswa memegang validasi pengguna.</p>
+</div></div>
+
+<div class="qa"><div class="q"><span class="n">27.</span>Dosen di tim apakah ikut mengerjakan purwarupa? Apa peran mahasiswa?<span class="pj">PS</span></div><div class="a">
+<p><span class="lbl l-ans">JAWABAN</span>Sesuai pedoman, dosen mengarahkan dan membimbing tanpa menggantikan peran mahasiswa. Reza memegang validasi pengguna (wawancara, uji tugas, SUS) dan antarmuka aplikasi sales. Pengembangan inti dipegang praktisi.</p>
+</div></div>
+
+<div class="qa"><div class="q"><span class="n">28.</span>Apa yang Anda butuhkan dari mitra?<span class="pj">RZ</span></div><div class="a">
+<p><span class="lbl l-ans">JAWABAN</span>Empat hal: waktu wawancara dengan sales, admin, dan direksi; izin ikut satu hari kunjungan sales; contoh data dummy produk dan outlet (sudah disebut di laman tantangan); dan dua sales serta satu admin gudang untuk uji dan pilot.</p>
+</div></div>
+
+<h2>Ringkasan: kelemahan yang harus diakui dengan jujur</h2>
+<table>
+  <tr><th style="width:36%">Kelemahan</th><th>Cara menyampaikan</th></tr>
+  <tr><td>Belum ada kontak langsung dengan mitra</td><td>Tertulis jujur di proposal; validasi adalah kegiatan pertama. Sebut daftar yang akan diukur (No. 2).</td></tr>
+  <tr><td>Belum ada baseline; target masih asumsi</td><td>Target akan dikalibrasi setelah baseline terukur (No. 18).</td></tr>
+  <tr><td>Prediksi butuh data riwayat</td><td>Mulai sederhana, alasan prioritas transparan, akurasi naik bertahap (No. 8).</td></tr>
+  <tr><td>Konflik stok offline tidak bisa nol</td><td>Dijamin terdeteksi, tidak ada data hilang, semua pihak diberi tahu (No. 6).</td></tr>
+  <tr><td>Odoo dan sejenisnya punya sebagian fitur</td><td>Pembeda ada pada kombinasi dan kesederhanaan untuk sales lapangan UMKM (No. 9).</td></tr>
+  <tr><td>Keterbatasan PWA di iPhone</td><td>Data tetap aman; sinkron saat aplikasi dibuka (No. 16).</td></tr>
+</table>
+
+</body>
+</html>

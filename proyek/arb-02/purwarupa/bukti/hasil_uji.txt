@@ -1,0 +1,36 @@
+Hasil uji otomatis purwarupa SIGAP (ARB-02)
+Dijalankan: 19-10-2026 23.11 WIB | Python 3.12.3 | Django 6.0.9 | PostgreSQL 16.14 | Node v22.22.2 | Dexie 3.2.7 (IndexedDB)
+Browser: /usr/bin/google-chrome (tampilan HP 400 × 860)
+Cara uji: koneksi browser diputus lewat emulasi jaringan (setara mode pesawat), lalu dinyalakan kembali.
+================================================================
+LULUS  1. Katalog produk dan outlet dimuat dari server Django
+LULUS  2. Saat tanpa sinyal, pesanan tersimpan di HP (IndexedDB) dengan status "menunggu" — 1 pesanan menunggu
+LULUS  3. Server belum menerima pesanan selama tanpa sinyal
+LULUS  4. Selama 10 detik tanpa sinyal, pesanan tetap aman di HP
+LULUS  5. Saat sinyal kembali, pesanan terkirim otomatis tanpa input ulang — 0.2 detik setelah sinyal kembali
+LULUS  6. Pengiriman ulang dengan kode unik yang sama dijawab "duplikat" — jawaban server: duplikat, duplikat
+LULUS  7. Server mencatat tepat 1 pesanan (tidak ganda) — 1 pesanan di server
+LULUS  8. Pesanan diterima: stok tersedia berkurang tepat sekali, stok fisik tetap — Kapsul tersedia 12 → 9 (fisik 12); Madu Propolis tersedia 40 → 38 (fisik 40)
+LULUS  9. Setiap perubahan stok tercatat di riwayat mutasi — 2 mutasi "pesan"
+LULUS  10. Peringatan stok menipis muncul — Kapsul tersedia 9 ≤ minimum 10
+LULUS  11. Pesanan melebihi stok tersedia ditolak dan stok tidak menjadi minus — keterangan: ditolak: sisa stok tersedia 9
+LULUS  12. Konfirmasi kirim: stok fisik dan stok dipesan berkurang, stok tersedia tetap — Kapsul fisik 12 → 9, dipesan 3 → 0; Madu Propolis fisik 40 → 38
+LULUS  13. FEFO: batch dengan kedaluwarsa terdekat terpakai lebih dulu walau masuk belakangan — MP-2603 (kedaluwarsa Mar 2027, masuk 1 Okt) 15 → 13; MP-2609 (Sep 2027, masuk 10 Sep) tetap 25
+LULUS  14. Pesanan dibatalkan sebelum kirim: stok dipesan kembali, stok fisik tetap — Jamu tersedia 24 → 20 saat dipesan → 24 setelah batal; fisik 24
+LULUS  15. Opname saat ada pesanan belum dikirim: hitungan rak sama dengan stok fisik, tanpa selisih palsu — Sari Kurma: rak 18 = fisik 18 (selisih 0); dipesan 5, tersedia 13
+LULUS  16. Penyesuaian stok (opname) mencatat selisih, batch, dan alasan — Jamu fisik 24 → 22 (selisih −2), batch JK-2612 sisa 22, alasan: Hasil stock opname: 2 botol rusak
+LULUS  17. Dua pesanan bersamaan untuk 30 botol terakhir: satu diterima, satu ditolak, stok tidak minus — Madu Hutan: diterima dan ditolak; dipesan 30, tersedia 0
+LULUS  18. Dua ponsel tanpa sinyal memesan 10 botol saat tersedia 13: satu diterima, satu ditolak, stok tidak minus — HP 1 ditolak, HP 2 diterima; Sari Kurma dipesan 15, tersedia 3
+LULUS  19. Telusur batch menampilkan outlet penerima yang benar — MP-2603: Apotek Sehat Jebres 2 botol
+================================================================
+Ringkasan: 19 dari 19 pemeriksaan lulus.
+
+Tangkapan layar:
+- 01_online_katalog_dimuat.png
+- 02_tanpa_sinyal_pesanan_tersimpan_di_hp.png
+- 03_sinyal_kembali_terkirim_otomatis.png
+- 04_stok_kurang_baris_ditolak.png
+- 06a_dua_ponsel_hp1.png
+- 06b_dua_ponsel_hp2.png
+- 05_panel_stok_batch_telusur.png
+- 07_panel_lengkap_pesanan_mutasi.png

@@ -1,0 +1,64 @@
+{% load static %}<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SIGAP · Panel Uji</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <style>
+    main { max-width: 1180px; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+    .cari { display: flex; gap: 8px; margin-bottom: 8px; }
+    .cari input { flex: 1; padding: 8px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; }
+    .cari button { width: auto; padding: 8px 14px; }
+    .oranye { color: #9a3412; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <header class="atas"><div><b>SIGAP</b> <span class="kecil">Panel uji admin (Django + PostgreSQL) · diperbarui otomatis</span></div><div class="lencana" id="waktu">—</div></header>
+  <main>
+    <section class="kartu"><h2>Stok produk (tersedia = fisik − dipesan)</h2><table id="t-produk"></table></section>
+    <div class="grid">
+      <section class="kartu"><h2>Batch dan kedaluwarsa</h2><table id="t-batch"></table></section>
+      <section class="kartu"><h2>Telusur batch ke outlet penerima</h2>
+        <div class="cari"><input id="no-batch" placeholder="Nomor batch, mis. MP-2603"><button id="btn-telusur" class="tombol kecil-tombol" type="button">Telusuri</button></div>
+        <table id="t-telusur"><tr><td class="kecil">Masukkan nomor batch.</td></tr></table>
+      </section>
+    </div>
+    <div class="grid">
+      <section class="kartu"><h2>Pesanan masuk</h2><table id="t-pesanan"></table></section>
+      <section class="kartu"><h2>Riwayat mutasi stok</h2><table id="t-mutasi"></table></section>
+    </div>
+  </main>
+  <script>
+  const jamId = (t) => (t ? new Date(t).toLocaleTimeString('id-ID') : '—');
+  const tgl = (t) => new Date(t).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
+  const tanda = (n) => (n > 0 ? '+' + n : String(n));
+  async function muat() {
+    const j = await (await fetch('/api/ringkasan', { cache: 'no-store' })).json();
+    document.getElementById('waktu').textContent = 'Server pukul ' + jamId(j.waktu_server);
+    document.getElementById('t-produk').innerHTML = '<tr><th>Kode</th><th>Produk</th><th>No. BPOM</th><th>Fisik</th><th>Dipesan</th><th>Tersedia</th><th>Min.</th><th>Status</th></tr>' +
+      j.produk.map((p) => `<tr><td>${p.kode}</td><td>${p.nama}</td><td>${p.no_bpom}</td><td>${p.stok_fisik}</td><td>${p.stok_dipesan}</td><td><b>${p.stok_tersedia}</b></td><td>${p.stok_min}</td><td>${p.perlu_perhatian ? '<span class="merah">Perlu perhatian</span>' : (p.menipis ? '<span class="merah">⚠ Stok menipis</span>' : 'Aman')}</td></tr>`).join('');
+    document.getElementById('t-batch').innerHTML = '<tr><th>Batch</th><th>Produk</th><th>Kedaluwarsa</th><th>Sisa</th></tr>' +
+      j.batch.map((b) => `<tr><td>${b.no_batch}</td><td>${b.produk}</td><td>${tgl(b.kedaluwarsa)}${b.mendekati_kedaluwarsa ? ' <span class="oranye">(≤ 90 hari)</span>' : ''}</td><td>${b.sisa}</td></tr>`).join('');
+    document.getElementById('t-pesanan').innerHTML = '<tr><th>No.</th><th>Outlet</th><th>Item (diterima/diminta)</th><th>Status</th><th>HP → server</th></tr>' +
+      (j.pesanan.map((p) => `<tr><td>${p.id}</td><td>${p.outlet}</td><td>${p.item.map((i) => `${i.produk} × ${i.diterima}/${i.diminta}`).join('<br>')}</td><td>${p.status}</td><td>${jamId(p.dibuat_di_hp)} → ${jamId(p.diterima_server)}</td></tr>`).join('') || '<tr><td colspan="5">Belum ada pesanan.</td></tr>');
+    document.getElementById('t-mutasi').innerHTML = '<tr><th>Waktu</th><th>Produk</th><th>Batch</th><th>Jenis</th><th>Δ fisik</th><th>Δ dipesan</th><th>Ref.</th></tr>' +
+      (j.mutasi.map((m) => `<tr><td>${jamId(m.waktu)}</td><td>${m.produk}</td><td>${m.batch}</td><td>${m.jenis}</td><td>${tanda(m.fisik)}</td><td>${tanda(m.dipesan)}</td><td>${m.referensi}${m.alasan ? ' · ' + m.alasan : ''}</td></tr>`).join('') || '<tr><td colspan="7">Belum ada mutasi.</td></tr>');
+  }
+  async function telusuri() {
+    const no = document.getElementById('no-batch').value.trim();
+    if (!no) return;
+    const r = await fetch('/api/telusur-batch/' + encodeURIComponent(no));
+    const j = await r.json();
+    document.getElementById('t-telusur').innerHTML = r.ok
+      ? `<tr><th colspan="3">${j.no_batch} · ${j.produk} · kedaluwarsa ${tgl(j.kedaluwarsa)} · sisa ${j.sisa}</th></tr><tr><th>Outlet penerima</th><th>Pesanan</th><th>Jumlah</th></tr>` +
+        (j.penerima.map((x) => `<tr><td>${x.outlet}</td><td>#${x.pesanan_id}</td><td>${x.jumlah}</td></tr>`).join('') || '<tr><td colspan="3">Belum ada pengiriman dari batch ini.</td></tr>')
+      : `<tr><td class="merah">${j.error}</td></tr>`;
+  }
+  document.getElementById('btn-telusur').addEventListener('click', telusuri);
+  muat(); setInterval(muat, 2000);
+  </script>
+</body>
+</html>

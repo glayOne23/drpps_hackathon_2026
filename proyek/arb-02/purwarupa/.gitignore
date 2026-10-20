@@ -1,0 +1,18 @@
+# Dependensi (dipasang ulang dengan pip install -r requirements.txt dan npm install)
+node_modules/
+.venv/
+
+# Salinan dexie.min.js dari node_modules (dibuat ulang dengan: npm run siapkan)
+static/vendor/
+
+# Hasil Python dan Django
+__pycache__/
+*.pyc
+staticfiles/
+db.sqlite3
+*.log
+
+# Rahasia lokal (koneksi basis data, SECRET_KEY)
+.env
+
+# Folder bukti/ sengaja TIDAK diabaikan: isinya bukti uji untuk Lampiran C.5 proposal.

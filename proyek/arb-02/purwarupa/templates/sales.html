@@ -1,0 +1,44 @@
+{% load static %}<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SIGAP · Aplikasi Sales (uji)</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+  <header class="atas">
+    <div><b>SIGAP</b> <span class="kecil">Aplikasi Sales</span></div>
+    <div class="status">
+      <span id="status-koneksi" class="lencana">memeriksa…</span>
+      <span class="lencana abu">Belum terkirim: <b id="jumlah-menunggu">0</b></span>
+    </div>
+  </header>
+
+  <main>
+    <section class="kartu">
+      <h2>Buat pesanan</h2>
+      <label for="outlet">Outlet</label>
+      <select id="outlet"></select>
+      <button id="btn-ulang" class="tombol sekunder" type="button">↻ Ulangi pesanan terakhir</button>
+      <p class="kecil" id="info-stok"></p>
+      <div id="daftar-produk"></div>
+      <div class="total">Total: <b id="total">Rp0</b></div>
+      <button id="btn-kirim" class="tombol utama" type="button">Kirim pesanan</button>
+      <div id="pesan" class="pesan" role="status"></div>
+    </section>
+
+    <section class="kartu">
+      <div class="judul-baris">
+        <h2>Pesanan saya</h2>
+        <button id="btn-sinkron" class="tombol kecil-tombol" type="button">Kirim sekarang</button>
+      </div>
+      <div id="daftar-pesanan"></div>
+    </section>
+    <p class="kecil catatan">Purwarupa uji ARB-02 (Django + PostgreSQL). Halaman ini satu halaman: pesanan disimpan di HP (IndexedDB) bila sinyal hilang dan dikirim otomatis saat sinyal kembali. Kode unik membuat pesanan tidak tercatat dua kali.</p>
+  </main>
+
+  <script src="{% static 'vendor/dexie.min.js' %}"></script>
+  <script src="{% static 'app.js' %}"></script>
+</body>
+</html>

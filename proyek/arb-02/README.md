@@ -44,6 +44,10 @@ Referensi: [Mitra](../../docs/mitra/cv-arbain.md) · [Peran tim](../../docs/04-p
 | Tanggal | Keputusan | Alasan | Fase |
 |---|---|---|---|
 | 14 Okt 2026 | Folder dibuat dan diisi dari riset sekunder | Persiapan proposal | — |
+| 19 Okt 2026 | Proposal pembanding disusun di template resmi: tim Antech Async, kategori Awal, konsep ArbaSync (PWA offline-first + buku besar stok ber-batch + jatah stok prediktif) — lihat [Proposal_AntechAsync_ArbaSync.docx](Proposal_AntechAsync_ArbaSync.docx) | Dibandingkan dengan proposal RS-01 sebelum memilih satu untuk diajukan | Proposal |
+| 19 Okt 2026 | Rancangan solusi gabungan v0.4 — fondasi SIGAP (P3), ditambah stok fisik vs dipesan, 4 peran, dan uji konkurensi (P1), serta batch/kedaluwarsa/FEFO, telusur batch, dan kunjungan berprioritas (P2); jatah stok prediktif ditunda — lihat [draf-solusi-gabungan.md](draf-solusi-gabungan.md) | Fondasi paling layak dibangun dan sudah teruji; tambahan dipilih yang murah (≤ 2 tabel, ≤ 1 layar, tanpa teknologi baru) | Ideate |
+| 19 Okt 2026 | **Tanpa PWA**; stack **Django + PostgreSQL** (monolit). Proposal disusun: [Proposal_AntechAsync_SIGAP.docx](Proposal_AntechAsync_SIGAP.docx) (+ [pratinjau PDF](PRATINJAU_Proposal_AntechAsync_SIGAP.pdf), diagram di [lampiran/](lampiran/)), kategori Awal, tim Antech Async | Keputusan pengguna. Mode tanpa sinyal cukup dengan halaman sales satu halaman + IndexedDB | Proposal |
+| 19 Okt 2026 | Purwarupa dipindahkan ke **Django + PostgreSQL** ([purwarupa/](purwarupa/)): stok fisik/dipesan, batch + FEFO, batal, opname, telusur batch; uji otomatis **19/19 lulus**. Lampiran C proposal diperbarui (C.5 tiga gambar + 19 uji, C.6 tinggal rencana) dan informasi yang bertentangan/berulang di docx dikoreksi | Uji coba harus memakai stack yang sama dengan proposal; klaim di Lampiran C harus sesuai uji nyata | Prototype |
 
 <!-- nav-bottom:start -->
 

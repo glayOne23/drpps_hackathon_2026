@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Lampiran C ArbaSync</title>
+<style>
+@font-face { font-family: "Tahoma"; src: url("Tahoma-regular.ttf"); font-weight: normal; }
+@font-face { font-family: "Tahoma"; src: url("Tahoma-bold.ttf"); font-weight: bold; }
+:root {
+  --ink: #1d2733; --muted: #5b6672; --line: #9aa5b1; --soft: #eef3f7;
+  --accent: #1f6fa8; --accent-soft: #cae9f7; --warn: #b8860b; --warn-soft: #fff4d6;
+  --bad: #b03a2e; --bad-soft: #fbe3e0; --ok: #2e7d4f; --ok-soft: #e1f2e7;
+}
+@page { size: A4; margin: 2.54cm 2.54cm 2cm 2.54cm;
+  @bottom-right { content: "Lampiran C · hlm. " counter(page); font: 8pt Tahoma; color: #5b6672; } }
+* { box-sizing: border-box; }
+body { font-family: Tahoma, sans-serif; font-size: 9.5pt; color: var(--ink); line-height: 1.35; margin: 0; background: #fff; }
+h1 { font-size: 13pt; margin: 0 0 2px; text-align: center; }
+.sub { text-align: center; color: var(--muted); font-size: 8.5pt; margin-bottom: 10px; }
+h2 { font-size: 10.5pt; background: var(--accent-soft); padding: 3px 6px; margin: 12px 0 6px; border: 1px solid #000; }
+p { margin: 0 0 6px; text-align: justify; }
+.note { font-size: 8pt; color: var(--muted); }
+.page { page-break-before: always; }
+table { border-collapse: collapse; width: 100%; font-size: 8.5pt; }
+th, td { border: 1px solid var(--line); padding: 2px 5px; text-align: left; vertical-align: top; }
+th { background: var(--soft); }
+td.num { text-align: right; }
+.pos { color: var(--ok); font-weight: bold; } .neg { color: var(--bad); font-weight: bold; }
+
+/* alur langkah */
+.flow { display: flex; gap: 0; align-items: stretch; margin: 4px 0 8px; }
+.step { flex: 1; border: 1px solid var(--accent); border-radius: 4px; padding: 4px 5px; font-size: 8pt; background: #fff; }
+.step b { color: var(--accent); display: block; font-size: 8.5pt; }
+.arr { width: 14px; display: flex; align-items: center; justify-content: center; color: var(--accent); font-weight: bold; }
+
+/* ponsel */
+.phones { display: flex; flex-wrap: wrap; gap: 14px 22px; justify-content: center; }
+.phone { width: 215px; height: 395px; border: 2px solid #333; border-radius: 18px; padding: 10px 7px 8px; position: relative; background: #fff; }
+.cap { text-align: center; font-size: 8pt; color: var(--muted); margin-top: 3px; }
+.scr { height: 371px; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; position: relative; font-size: 7.6pt; }
+.bar { font-size: 6.8pt; padding: 2px 5px; display: flex; justify-content: space-between; }
+.bar.off { background: var(--warn-soft); color: #6b5000; }
+.bar.on { background: var(--ok-soft); color: var(--ok); }
+.dot { display: inline-block; width: 6px; height: 6px; border-radius: 3px; margin-right: 3px; vertical-align: middle; }
+.hdr { background: var(--accent); color: #fff; padding: 4px 6px; font-weight: bold; font-size: 8.5pt; }
+.hdr small { display: block; font-weight: normal; font-size: 6.8pt; opacity: .9; }
+.body { padding: 5px 5px 22px; }
+.card { border: 1px solid var(--line); border-radius: 3px; padding: 3px 5px; margin-bottom: 4px; }
+.card b { font-size: 7.8pt; }
+.tag { display: inline-block; font-size: 6.4pt; padding: 0 4px; border-radius: 6px; margin-top: 1px; }
+.t-blue { background: var(--accent-soft); color: #0d4a73; } .t-warn { background: var(--warn-soft); color: #6b5000; }
+.t-bad { background: var(--bad-soft); color: var(--bad); } .t-ok { background: var(--ok-soft); color: var(--ok); }
+.btn { display: block; text-align: center; border-radius: 3px; padding: 4px; font-weight: bold; margin: 4px 0; font-size: 7.8pt; }
+.btn.pri { background: var(--accent); color: #fff; } .btn.sec { border: 1px solid var(--accent); color: var(--accent); }
+.prog { height: 5px; background: var(--soft); border-radius: 3px; margin: 2px 0 1px; }
+.prog i { display: block; height: 5px; background: var(--accent); border-radius: 3px; }
+.row { display: flex; justify-content: space-between; align-items: center; }
+.qty { white-space: nowrap; font-weight: bold; }
+.qty span { display: inline-block; margin: 0 4px; border: 1px solid var(--line); width: 14px; height: 14px; text-align: center; line-height: 12px; border-radius: 2px; font-weight: bold; }
+.mini { font-size: 6.6pt; color: var(--muted); }
+.nav { display: flex; border-top: 1px solid var(--line); font-size: 6.6pt; position: absolute; left: 0; right: 0; bottom: 0; background: #fff; }
+.nav div { flex: 1; text-align: center; padding: 3px 0; color: var(--muted); }
+.nav div.act { color: var(--accent); font-weight: bold; }
+
+/* dasbor desktop */
+.desk { border: 2px solid #333; border-radius: 6px; overflow: hidden; font-size: 7.6pt; }
+.desk .top { background: #333; color: #fff; padding: 3px 8px; font-size: 7pt; display: flex; justify-content: space-between; }
+.desk .wrap { display: flex; }
+.side { width: 92px; background: var(--soft); padding: 6px; font-size: 7.4pt; }
+.side div { padding: 3px 4px; border-radius: 3px; margin-bottom: 2px; }
+.side .act { background: var(--accent); color: #fff; font-weight: bold; }
+.main { flex: 1; padding: 6px 8px; }
+.kpis { display: flex; gap: 6px; margin-bottom: 6px; }
+.kpi { flex: 1; border: 1px solid var(--line); border-radius: 3px; padding: 3px 5px; }
+.kpi .v { font-size: 11pt; font-weight: bold; color: var(--accent); }
+.kpi .l { font-size: 6.8pt; color: var(--muted); }
+.grid2 { display: flex; gap: 6px; }
+.grid2 > div { flex: 1; }
+.panel { border: 1px solid var(--line); border-radius: 3px; padding: 4px 5px; margin-bottom: 6px; }
+.panel h4 { margin: 0 0 3px; font-size: 7.8pt; }
+.panel table { font-size: 7pt; }
+.panel th, .panel td { padding: 1px 3px; }
+
+/* model data */
+.ents { display: flex; flex-wrap: wrap; justify-content: space-between; }
+.ent { width: 24%; margin-bottom: 6px; border: 1px solid var(--accent); border-radius: 3px; font-size: 7.4pt; }
+.ent b { display: block; background: var(--accent-soft); padding: 2px 4px; font-size: 7.8pt; }
+.ent div { padding: 2px 4px; color: var(--muted); }
+.ent.key { border-width: 2px; }
+</style>
+</head>
+<body>
+
+<h1>LAMPIRAN C — BUKTI DESAIN AWAL</h1>
+<div class="sub">ArbaSync: CRM Offline-First dengan Buku Besar Stok Ber-batch dan Jatah Stok Prediktif · Tim Antech Async · Tantangan ARB-02<br>
+Status: rancangan (TKT 2). Nama outlet, angka, dan transaksi pada lampiran ini adalah data contoh (dummy) untuk ilustrasi.</div>
+
+<h2>C1. Arsitektur sistem</h2>
+<svg viewBox="0 0 600 330" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="Tahoma" font-size="10">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f6fa8"/></marker>
+  </defs>
+  <!-- ponsel -->
+  <rect x="8" y="22" width="215" height="240" rx="10" fill="#fff" stroke="#333" stroke-width="2"/>
+  <text x="115" y="16" text-anchor="middle" font-weight="bold">Ponsel sales — PWA (Android, peramban)</text>
+  <rect x="20" y="34" width="191" height="44" rx="3" fill="#cae9f7" stroke="#1f6fa8"/>
+  <text x="115" y="51" text-anchor="middle" font-weight="bold">Antarmuka sales</text>
+  <text x="115" y="67" text-anchor="middle" font-size="8.5">Hari ini · Outlet · Pesanan cepat · Antrean</text>
+  <rect x="20" y="86" width="191" height="36" rx="3" fill="#fff" stroke="#1f6fa8"/>
+  <text x="115" y="101" text-anchor="middle" font-weight="bold">Service Worker</text>
+  <text x="115" y="115" text-anchor="middle" font-size="8.5">menyimpan aplikasi → bisa dibuka tanpa sinyal</text>
+  <rect x="20" y="130" width="191" height="56" rx="3" fill="#fff" stroke="#1f6fa8"/>
+  <text x="115" y="145" text-anchor="middle" font-weight="bold">Basis data lokal (IndexedDB)</text>
+  <text x="115" y="160" text-anchor="middle" font-size="8.5">outlet dan riwayat · katalog SKU dan harga</text>
+  <text x="115" y="174" text-anchor="middle" font-size="8.5">snapshot stok + jam · jatah stok hari ini</text>
+  <rect x="20" y="194" width="191" height="56" rx="3" fill="#fff4d6" stroke="#b8860b"/>
+  <text x="115" y="209" text-anchor="middle" font-weight="bold">Outbox (antrean kirim)</text>
+  <text x="115" y="224" text-anchor="middle" font-size="8.5">check-in, pesanan, catatan kunjungan</text>
+  <text x="115" y="238" text-anchor="middle" font-size="8.5">ID unik (UUID) dibuat di ponsel</text>
+
+  <!-- jaringan -->
+  <line x1="226" y1="150" x2="372" y2="150" stroke="#1f6fa8" stroke-width="2" marker-end="url(#a)"/>
+  <text x="299" y="142" text-anchor="middle" font-size="8.5">push: kirim isi outbox</text>
+  <text x="299" y="164" text-anchor="middle" font-size="8">(idempoten per UUID)</text>
+  <line x1="372" y1="200" x2="226" y2="200" stroke="#1f6fa8" stroke-width="2" marker-end="url(#a)"/>
+  <text x="299" y="192" text-anchor="middle" font-size="8.5">pull: perubahan sejak kursor</text>
+  <text x="299" y="214" text-anchor="middle" font-size="8">stok, jatah, prioritas, status</text>
+  <text x="299" y="98" text-anchor="middle" font-size="8.5" fill="#5b6672">HTTPS, otomatis</text>
+  <text x="299" y="110" text-anchor="middle" font-size="8.5" fill="#5b6672">saat sinyal ada</text>
+  <text x="299" y="122" text-anchor="middle" font-size="8" fill="#5b6672">(Background Sync)</text>
+
+  <!-- server -->
+  <rect x="377" y="22" width="215" height="240" rx="6" fill="#fff" stroke="#333" stroke-width="2"/>
+  <text x="484" y="16" text-anchor="middle" font-weight="bold">Server (VPS lokal / server UMS)</text>
+  <rect x="389" y="34" width="191" height="40" rx="3" fill="#cae9f7" stroke="#1f6fa8"/>
+  <text x="484" y="50" text-anchor="middle" font-weight="bold">API sinkronisasi + REST admin</text>
+  <text x="484" y="65" text-anchor="middle" font-size="8.5">validasi, deduplikasi, resolusi konflik</text>
+  <rect x="389" y="82" width="191" height="50" rx="3" fill="#fff" stroke="#1f6fa8"/>
+  <text x="484" y="98" text-anchor="middle" font-weight="bold">Buku besar stok ber-batch</text>
+  <text x="484" y="112" text-anchor="middle" font-size="8.5">stok = Σ pergerakan · jejak audit</text>
+  <text x="484" y="125" text-anchor="middle" font-size="8.5">alokasi FEFO per tanggal kedaluwarsa</text>
+  <rect x="389" y="140" width="191" height="50" rx="3" fill="#fff" stroke="#1f6fa8"/>
+  <text x="484" y="156" text-anchor="middle" font-weight="bold">Mesin prediksi (terjadwal)</text>
+  <text x="484" y="170" text-anchor="middle" font-size="8.5">interval pesan ulang outlet × SKU</text>
+  <text x="484" y="183" text-anchor="middle" font-size="8.5">→ prioritas kunjungan + jatah stok</text>
+  <rect x="389" y="198" width="191" height="52" rx="3" fill="#eef3f7" stroke="#1f6fa8"/>
+  <text x="484" y="216" text-anchor="middle" font-weight="bold">PostgreSQL</text>
+  <text x="484" y="231" text-anchor="middle" font-size="8.5">outlet, pesanan, kunjungan, batch,</text>
+  <text x="484" y="243" text-anchor="middle" font-size="8.5">pergerakan stok, target, piutang</text>
+
+  <!-- dasbor -->
+  <line x1="484" y1="262" x2="484" y2="280" stroke="#1f6fa8" stroke-width="2" marker-end="url(#a)" marker-start="url(#a)"/>
+  <rect x="377" y="282" width="215" height="44" rx="6" fill="#cae9f7" stroke="#1f6fa8"/>
+  <text x="484" y="299" text-anchor="middle" font-weight="bold">Dasbor web (desktop)</text>
+  <text x="484" y="315" text-anchor="middle" font-size="8.5">admin gudang · admin penjualan · direksi</text>
+  <rect x="8" y="282" width="215" height="44" rx="6" fill="#fff4d6" stroke="#b8860b"/>
+  <text x="115" y="299" text-anchor="middle" font-weight="bold">Tanpa sinyal pun tetap bekerja</text>
+  <text x="115" y="315" text-anchor="middle" font-size="8.5">semua tindakan sales tersimpan di ponsel dulu</text>
+</svg>
+<p class="note">Teknologi usulan: React + Vite + Workbox (PWA), Dexie.js (IndexedDB), API Laravel/Node, PostgreSQL. Seluruhnya perangkat lunak sumber terbuka dan dapat di-hosting di server lokal.</p>
+
+<h2>C2. Alur pesanan offline dan penyelesaian konflik stok</h2>
+<div class="flow">
+  <div class="step"><b>1 · Sinkron pagi</b>Ponsel menarik data outlet, katalog, stok, prioritas kunjungan, dan <i>jatah stok</i> sales hari itu.</div>
+  <div class="arr">›</div>
+  <div class="step"><b>2 · Di outlet (offline)</b>Check-in, pesanan, dan catatan disimpan di basis data lokal dan outbox dengan UUID.</div>
+  <div class="arr">›</div>
+  <div class="step"><b>3 · Sinyal kembali</b>Outbox dikirim otomatis. UUID mencegah pesanan tercatat ganda saat jaringan putus-sambung.</div>
+  <div class="arr">›</div>
+  <div class="step"><b>4 · Server memutuskan</b>Pesanan dicatat ke buku besar, lalu status dikirim balik ke ponsel dan dasbor.</div>
+</div>
+<table>
+  <tr><th style="width:34%">Kondisi saat pesanan diterima server</th><th style="width:36%">Hasil</th><th>Notifikasi</th></tr>
+  <tr><td>Jumlah masih dalam jatah stok sales</td><td><span class="tag t-ok">Dikonfirmasi otomatis</span> — aman meski dibuat offline</td><td>—</td></tr>
+  <tr><td>Melebihi jatah, stok gudang masih cukup</td><td><span class="tag t-ok">Dikonfirmasi</span> — stok dikurangi dari sisa gudang</td><td>—</td></tr>
+  <tr><td>Stok gudang tidak cukup (mis. dua sales memesan stok terakhir)</td><td><span class="tag t-warn">Dipenuhi sebagian + backorder</span></td><td>Sales dan admin gudang</td></tr>
+  <tr><td>Data dengan UUID yang sudah pernah diterima</td><td><span class="tag t-blue">Diabaikan (idempoten)</span></td><td>—</td></tr>
+</table>
+
+<h2 class="page">C3. Buku besar stok ber-batch (contoh)</h2>
+<p>Stok tidak disimpan sebagai satu angka yang ditimpa, tetapi sebagai daftar pergerakan. Stok tersedia adalah jumlah seluruh baris. Karena penjumlahan tidak bergantung urutan, data dari banyak ponsel offline dapat digabung tanpa saling menimpa, dan setiap selisih saat <i>stock opname</i> punya jejak asal-usul.</p>
+<table>
+  <tr><th>Waktu</th><th>SKU</th><th>Batch (kedaluwarsa)</th><th class="num">Jumlah</th><th>Jenis</th><th>Sumber</th></tr>
+  <tr><td>Sen 07.30</td><td>Madu Hitam Pahit 500 g</td><td>B2609 (09/2027)</td><td class="num pos">+100</td><td>masuk produksi</td><td>admin gudang</td></tr>
+  <tr><td>Sen 07.31</td><td>Madu Hitam Pahit 500 g</td><td>B2603 (03/2027)</td><td class="num pos">+20</td><td>sisa batch lama</td><td>admin gudang</td></tr>
+  <tr><td>Sel 10.14</td><td>Madu Hitam Pahit 500 g</td><td>— (dipesan)</td><td class="num neg">−12</td><td>pesanan</td><td>Sales A (offline, terkirim 11.02)</td></tr>
+  <tr><td>Sel 10.20</td><td>Madu Hitam Pahit 500 g</td><td>— (dipesan)</td><td class="num neg">−10</td><td>pesanan</td><td>Sales B</td></tr>
+  <tr><td>Sel 13.00</td><td>Madu Hitam Pahit 500 g</td><td>B2603 → 20, B2609 → 2</td><td class="num">0</td><td>alokasi kirim FEFO</td><td>sistem</td></tr>
+  <tr><td>Jum 16.00</td><td>Madu Hitam Pahit 500 g</td><td>B2609</td><td class="num neg">−1</td><td>penyesuaian opname</td><td>admin gudang (alasan: rusak)</td></tr>
+  <tr><th colspan="3">Stok tersedia = Σ pergerakan</th><th class="num">97</th><th colspan="2">batch tertua dikirim lebih dulu (FEFO)</th></tr>
+</table>
+<p class="note" style="margin-top:4px">Ketertelusuran: dari nomor batch, sistem menampilkan daftar outlet yang menerima batch tersebut. Ini mendukung penarikan produk atau penanganan keluhan sesuai praktik CPOTB.</p>
+
+<h2>C4. Jatah stok prediktif dan prioritas kunjungan</h2>
+<div class="flow">
+  <div class="step"><b>Masukan</b>Riwayat pesanan per outlet × SKU, tanggal kunjungan terakhir, piutang jatuh tempo, rute sales.</div>
+  <div class="arr">›</div>
+  <div class="step"><b>Peramalan</b><i>Exponential smoothing</i> atas interval pesan ulang dan jumlah per pesanan. Outlet baru memakai rata-rata outlet sejenis.</div>
+  <div class="arr">›</div>
+  <div class="step"><b>Prioritas</b>Skor = perkiraan nilai pesanan × kedekatan jatuh tempo pesan ulang, plus bobot piutang dan lama tidak dikunjungi.</div>
+  <div class="arr">›</div>
+  <div class="step"><b>Jatah</b>Stok gudang dibagi ke sales sesuai perkiraan kebutuhan rute hari itu, dengan sisa cadangan di gudang.</div>
+</div>
+<table>
+  <tr><th>Outlet (contoh)</th><th class="num">Rata-rata interval</th><th class="num">Hari sejak pesan</th><th>Alasan prioritas</th><th class="num">Skor</th></tr>
+  <tr><td>Apotek Sehat Jebres</td><td class="num">14 hari</td><td class="num">13</td><td>waktunya pesan ulang</td><td class="num">0,92</td></tr>
+  <tr><td>Toko Obat Barokah</td><td class="num">21 hari</td><td class="num">9</td><td>piutang jatuh tempo 2 hari</td><td class="num">0,81</td></tr>
+  <tr><td>Minimarket Sumber Rejeki</td><td class="num">10 hari</td><td class="num">21</td><td>lama tidak dikunjungi, mulai "dingin"</td><td class="num">0,77</td></tr>
+  <tr><td>Apotek Kartika</td><td class="num">—</td><td class="num">—</td><td>outlet baru, memakai rata-rata sejenis</td><td class="num">0,55</td></tr>
+</table>
+<p class="note" style="margin-top:4px">Akurasi peramalan diukur dengan galat rata-rata pada data riwayat mitra. Selama data riwayat masih sedikit, sistem menampilkan alasan prioritas secara terbuka agar sales tetap dapat menilai sendiri.</p>
+
+<h2>C5. Model data ringkas</h2>
+<div class="ents">
+  <div class="ent key"><b>outlet</b><div>nama, jenis, alamat, GPS, kontak, sales_id</div></div>
+  <div class="ent"><b>sales</b><div>nama, wilayah, target_bulanan</div></div>
+  <div class="ent"><b>sku</b><div>nama, satuan (dus/pak/pcs), harga, stok_minimum</div></div>
+  <div class="ent"><b>batch</b><div>sku_id, no_batch, kedaluwarsa</div></div>
+  <div class="ent key"><b>pergerakan_stok</b><div>uuid, sku_id, batch_id, jumlah ±, jenis, sumber, waktu</div></div>
+  <div class="ent key"><b>pesanan</b><div>uuid, outlet_id, sales_id, status, termin, dibuat_offline</div></div>
+  <div class="ent"><b>item_pesanan</b><div>pesanan_id, sku_id, jumlah, dipenuhi, backorder</div></div>
+  <div class="ent"><b>kunjungan</b><div>uuid, outlet_id, sales_id, waktu, GPS, hasil, catatan</div></div>
+  <div class="ent"><b>jatah_stok</b><div>sales_id, sku_id, tanggal, jumlah, terpakai</div></div>
+  <div class="ent"><b>prediksi</b><div>outlet_id, sku_id, interval, perkiraan_jumlah, skor</div></div>
+  <div class="ent"><b>piutang</b><div>pesanan_id, jatuh_tempo, status (tanpa akuntansi)</div></div>
+  <div class="ent"><b>prospek</b><div>sumber (WA/situs), jenis (grosir/maklon), status</div></div>
+</div>
+
+<h2 class="page">C6. Wireframe aplikasi sales (ponsel)</h2>
+<p>Target: satu pesanan ulang tercatat dalam tiga ketukan dan ±15 detik, dengan atau tanpa sinyal. Indikator koneksi selalu tampil di atas layar.</p>
+<div class="phones">
+
+  <div>
+  <div class="phone"><div class="scr">
+    <div class="bar off"><span><span class="dot" style="background:#b8860b"></span>Offline</span><span>3 data menunggu</span></div>
+    <div class="hdr">Kunjungan hari ini<small>Selasa, 3 Nov · Rute Jebres–Mojosongo</small></div>
+    <div class="body">
+      <div class="card"><div class="row"><b>Target bulan ini</b><span class="mini">Rp 5,1 / 12,5 jt</span></div>
+        <div class="prog"><i style="width:41%"></i></div><span class="mini">41% · 9 kunjungan hari ini</span></div>
+      <div class="card"><b>1. Apotek Sehat Jebres</b><br><span class="tag t-blue">waktunya pesan ulang</span> <span class="mini">· 1,2 km</span></div>
+      <div class="card"><b>2. Toko Obat Barokah</b><br><span class="tag t-warn">piutang jatuh tempo 2 hari</span></div>
+      <div class="card"><b>3. Minimarket Sumber Rejeki</b><br><span class="tag t-bad">21 hari tidak dikunjungi</span></div>
+      <div class="card"><b>4. Apotek Kartika</b><br><span class="tag t-ok">outlet baru</span> <span class="mini">· prospek</span></div>
+      <div class="mini">Daftar disusun saat sinkron pagi, 07.15.</div>
+    </div>
+    <div class="nav"><div class="act">Hari ini</div><div>Outlet</div><div>Stok</div><div>Antrean (3)</div></div>
+  </div></div>
+  <div class="cap">① Hari ini: kunjungan yang diprioritaskan</div>
+  </div>
+
+  <div>
+  <div class="phone"><div class="scr">
+    <div class="bar off"><span><span class="dot" style="background:#b8860b"></span>Offline</span><span>3 data menunggu</span></div>
+    <div class="hdr">Apotek Sehat Jebres<small>Jl. contoh No. 12, Jebres · Bu L. (pemilik)</small></div>
+    <div class="body">
+      <div class="btn pri">CHECK-IN</div>
+      <div class="mini" style="text-align:center">Waktu dan lokasi GPS dicatat otomatis (±15 m)</div>
+      <div class="card"><b>3 pesanan terakhir</b>
+        <div class="mini">20 Okt · Madu Hitam 2 dus, Sari Kurma 1 dus</div>
+        <div class="mini">6 Okt · Madu Hitam 2 dus, Propolis 1 dus</div>
+        <div class="mini">22 Sep · Madu Hitam 3 dus</div></div>
+      <div class="card"><b>Piutang</b> <span class="tag t-warn">Rp 1,2 jt · jatuh tempo 5 Nov</span></div>
+      <div class="card"><b>Catatan kunjungan</b><div class="mini">"Minta info madu kemasan kecil."</div></div>
+      <div class="btn pri">Buat pesanan</div>
+      <div class="btn sec">Catat kunjungan tanpa pesanan</div>
+    </div>
+    <div class="nav"><div>Hari ini</div><div class="act">Outlet</div><div>Stok</div><div>Antrean (3)</div></div>
+  </div></div>
+  <div class="cap">② Profil outlet dan check-in</div>
+  </div>
+
+  <div>
+  <div class="phone"><div class="scr">
+    <div class="bar off"><span><span class="dot" style="background:#b8860b"></span>Offline</span><span>stok per 07.15</span></div>
+    <div class="hdr">Pesanan · Apotek Sehat Jebres<small>Termin: tempo 14 hari</small></div>
+    <div class="body">
+      <div class="btn sec">↻ Ulangi pesanan terakhir</div>
+      <div class="card"><div class="row"><b>Madu Hitam Pahit 500 g</b><div class="qty"><span>−</span>2<span>+</span></div></div>
+        <div class="mini">dus · jatah Anda 6 · gudang 97</div></div>
+      <div class="card"><div class="row"><b>Sari Kurma plus Herbal</b><div class="qty"><span>−</span>1<span>+</span></div></div>
+        <div class="mini">dus · jatah Anda 3 · gudang 40</div></div>
+      <div class="card"><div class="row"><b>Propolis Trigona Red</b><div class="qty"><span>−</span>0<span>+</span></div></div>
+        <div class="mini">pak · jatah Anda 4 · gudang 25</div></div>
+      <div class="card" style="border-color:#b8860b;background:#fff4d6"><div class="row"><b>Gamat</b><div class="qty"><span>−</span>3<span>+</span></div></div>
+        <div class="mini" style="color:#6b5000">melebihi jatah (2) — dikonfirmasi gudang saat sinkron</div></div>
+      <div class="row"><b>Total</b><b>Rp 1.465.000</b></div>
+      <div class="btn pri">Simpan pesanan</div>
+      <div class="mini" style="text-align:center">Tersimpan di ponsel, terkirim saat sinyal ada</div>
+    </div>
+    <div class="nav"><div>Hari ini</div><div class="act">Outlet</div><div>Stok</div><div>Antrean (3)</div></div>
+  </div></div>
+  <div class="cap">③ Pesanan cepat dengan jatah stok</div>
+  </div>
+
+  <div>
+  <div class="phone"><div class="scr">
+    <div class="bar on"><span><span class="dot" style="background:#2e7d4f"></span>Online</span><span>mengirim…</span></div>
+    <div class="hdr">Antrean kirim<small>Data yang dibuat saat offline</small></div>
+    <div class="body">
+      <div class="card"><b>Pesanan · Apotek Sehat Jebres</b><br><span class="tag t-ok">terkirim 11.02 · dikonfirmasi</span></div>
+      <div class="card"><b>Check-in · Toko Obat Barokah</b><br><span class="tag t-ok">terkirim 11.02</span></div>
+      <div class="card" style="border-color:#b03a2e"><b>Pesanan · Sumber Rejeki</b><br><span class="tag t-bad">perlu perhatian</span>
+        <div class="mini">Gamat: 2 dari 3 dus dipenuhi, 1 dus backorder. Admin gudang sudah diberi tahu.</div></div>
+      <div class="card"><b>Catatan · Apotek Kartika</b><br><span class="tag t-warn">menunggu sinyal</span></div>
+      <div class="btn sec">Kirim sekarang</div>
+      <div class="mini">Data tidak pernah dihapus dari ponsel sebelum server mengonfirmasi penerimaan.</div>
+    </div>
+    <div class="nav"><div>Hari ini</div><div>Outlet</div><div>Stok</div><div class="act">Antrean</div></div>
+  </div></div>
+  <div class="cap">④ Antrean kirim dan hasil sinkronisasi</div>
+  </div>
+
+</div>
+
+<h2 class="page">C7. Wireframe dasbor web (desktop)</h2>
+<p>Dasbor direksi dan admin memakai data yang sama dengan aplikasi sales, sehingga laporan tersusun otomatis tanpa input berulang.</p>
+<div class="desk">
+  <div class="top"><span>ArbaSync · Dasbor direksi</span><span>Data per Selasa, 3 Nov 16.00 · 2 ponsel belum sinkron</span></div>
+  <div class="wrap">
+    <div class="side">
+      <div class="act">Ringkasan</div><div>Pesanan</div><div>Kinerja sales</div><div>Outlet</div><div>Stok dan batch</div><div>Prospek</div><div>Impor data</div><div>Pengaturan</div>
+    </div>
+    <div class="main">
+      <div class="kpis">
+        <div class="kpi"><div class="v">37</div><div class="l">pesanan hari ini · Rp 18,4 jt</div></div>
+        <div class="kpi"><div class="v">52/60</div><div class="l">kunjungan terencana tercapai</div></div>
+        <div class="kpi"><div class="v">214</div><div class="l">outlet aktif 30 hari</div></div>
+        <div class="kpi"><div class="v" style="color:#b03a2e">3</div><div class="l">SKU di bawah stok minimum</div></div>
+      </div>
+      <div class="grid2">
+        <div>
+          <div class="panel"><h4>Kinerja sales (bulan berjalan)</h4>
+            <table><tr><th>Sales</th><th class="num">Kunjungan</th><th class="num">Pesanan</th><th>Capaian target</th></tr>
+              <tr><td>Sales A</td><td class="num">96</td><td class="num">71</td><td><div class="prog"><i style="width:62%"></i></div>62%</td></tr>
+              <tr><td>Sales B</td><td class="num">88</td><td class="num">54</td><td><div class="prog"><i style="width:47%"></i></div>47%</td></tr>
+              <tr><td>Sales C</td><td class="num">73</td><td class="num">49</td><td><div class="prog"><i style="width:41%"></i></div>41%</td></tr>
+            </table></div>
+          <div class="panel"><h4>Outlet mulai "dingin" (melewati interval pesan ulang)</h4>
+            <table><tr><th>Outlet</th><th class="num">Terlambat</th><th>Sales</th></tr>
+              <tr><td>Minimarket Sumber Rejeki</td><td class="num">11 hari</td><td>Sales A</td></tr>
+              <tr><td>Apotek Nusa</td><td class="num">8 hari</td><td>Sales C</td></tr>
+              <tr><td>TO Sentosa</td><td class="num">6 hari</td><td>Sales B</td></tr>
+            </table></div>
+        </div>
+        <div>
+          <div class="panel"><h4>Stok dan batch</h4>
+            <table><tr><th>SKU</th><th class="num">Stok</th><th>Batch terdekat ED</th><th>Status</th></tr>
+              <tr><td>Madu Hitam Pahit</td><td class="num">97</td><td>B2603 · 03/2027</td><td><span class="tag t-ok">aman</span></td></tr>
+              <tr><td>Gamat</td><td class="num">4</td><td>G2511 · 11/2026</td><td><span class="tag t-bad">di bawah minimum</span></td></tr>
+              <tr><td>Propolis Trigona Red</td><td class="num">25</td><td>P2601 · 01/2027</td><td><span class="tag t-warn">ED &lt; 90 hari</span></td></tr>
+            </table></div>
+          <div class="panel"><h4>Perlu tindakan</h4>
+            <table><tr><th>Kejadian</th><th>Tindakan</th></tr>
+              <tr><td>Backorder Gamat 1 dus (Sumber Rejeki)</td><td>jadwalkan produksi / kirim susulan</td></tr>
+              <tr><td>Selisih opname Madu Hitam −1 (rusak)</td><td>sudah dicatat, jejak audit tersedia</td></tr>
+              <tr><td>Saran produksi minggu depan</td><td>Gamat 30 dus · Sari Kurma 20 dus</td></tr>
+            </table></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2>C8. Skenario demo dan uji yang direncanakan</h2>
+<table>
+  <tr><th style="width:4%">#</th><th style="width:52%">Langkah demo (dua ponsel + satu laptop)</th><th>Yang dibuktikan</th></tr>
+  <tr><td>1</td><td>Ponsel sales A dan B diubah ke mode pesawat.</td><td>Aplikasi tetap terbuka dan berfungsi.</td></tr>
+  <tr><td>2</td><td>Sales A check-in, menekan "Ulangi pesanan terakhir", lalu menyimpan; waktu input diukur.</td><td>Target ≤ 15 detik per pesanan.</td></tr>
+  <tr><td>3</td><td>Sales B memesan SKU yang sama hingga melebihi stok gudang.</td><td>Peringatan jatah tampil di ponsel.</td></tr>
+  <tr><td>4</td><td>Mode pesawat dimatikan; kedua ponsel sinkron.</td><td>Tanpa duplikasi; stok, kinerja, dan riwayat outlet di dasbor langsung berubah.</td></tr>
+  <tr><td>5</td><td>Server mendeteksi stok kurang, membuat backorder, dan mengirim notifikasi.</td><td>Konflik stok tertangani tanpa data hilang.</td></tr>
+  <tr><td>6</td><td>Dari nomor batch, tampilkan outlet penerima.</td><td>Ketertelusuran batch sampai ke outlet.</td></tr>
+</table>
+<p class="note" style="margin-top:4px">Uji pengguna setelah hackathon: uji tugas dan kuesioner SUS dengan sales serta admin CV Arba'in (target SUS ≥ 70), lalu pilot lapangan untuk mengukur selisih stok dibandingkan baseline.</p>
+
+</body>
+</html>

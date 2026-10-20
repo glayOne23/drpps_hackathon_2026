@@ -44,6 +44,8 @@ Referensi: [Mitra](../../docs/mitra/rs-ums-ar-fachrudin.md) · [Peran tim](../..
 | Tanggal | Keputusan | Alasan | Fase |
 |---|---|---|---|
 | 14 Okt 2026 | Folder dibuat dan diisi dari riset sekunder | Persiapan proposal | — |
+| [tgl rapat] | Rapat tim 01: design flow notifikasi WA dua arah (pasien ↔ dokter), waktu reminder diatur admin — lihat [catatan-rapat-01.md](catatan-rapat-01.md) | Hasil rapat | 3 Ideate |
+| 19 Okt 2026 | Draf proposal disusun: tim Antech Async, ketua Purwo Setiawan, kategori Awal, nama sistem usulan SiKabar, stack Django — lihat [proposal-draf.md](proposal-draf.md) | Persiapan pengajuan 20 Okt | Proposal |
 
 <!-- nav-bottom:start -->
 

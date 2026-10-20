@@ -1,0 +1,17 @@
+{
+  "name": "sigap-purwarupa-django",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Uji otomatis purwarupa SIGAP (ARB-02) di Chrome: Django + PostgreSQL, halaman sales tanpa sinyal (IndexedDB/Dexie)",
+  "scripts": {
+    "siapkan": "node -e \"require('fs').copyFileSync('node_modules/dexie/dist/dexie.min.js','static/vendor/dexie.min.js')\"",
+    "uji": "node uji/e2e.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "dexie": "3.2.7",
+    "puppeteer-core": "^24.0.0"
+  }
+}
