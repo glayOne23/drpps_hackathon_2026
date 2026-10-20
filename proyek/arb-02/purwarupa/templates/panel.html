@@ -13,6 +13,12 @@
     .cari input { flex: 1; padding: 8px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; }
     .cari button { width: auto; padding: 8px 14px; }
     .oranye { color: #9a3412; font-weight: 600; }
+    .baris-grafik { display: flex; gap: 10px; align-items: center; margin-bottom: 6px; flex-wrap: wrap; }
+    .baris-grafik select { width: auto; margin: 0; padding: 6px 8px; font-size: 13.5px; }
+    .legenda { font-size: 12.5px; color: #475569; }
+    .legenda i { display: inline-block; width: 18px; height: 0; border-top: 3px solid #2563eb; vertical-align: middle; margin: 0 4px 0 10px; }
+    .legenda i.ramal { border-top: 3px dashed #ea580c; }
+    #grafik { width: 100%; height: auto; display: block; }
   </style>
 </head>
 <body>
@@ -26,6 +32,14 @@
         <table id="t-telusur"><tr><td class="kecil">Masukkan nomor batch.</td></tr></table>
       </section>
     </div>
+    <section class="kartu" id="bagian-prediksi">
+      <h2>Prediksi penjualan dan saran produksi</h2>
+      <p class="kecil" id="ket-prediksi"></p>
+      <div class="baris-grafik"><select id="pilih-produk"></select>
+        <span class="legenda"><i></i>permintaan per minggu<i class="ramal"></i>ramalan 4 minggu</span></div>
+      <svg id="grafik" viewBox="0 0 1100 230" role="img" aria-label="Grafik permintaan dan ramalan"></svg>
+      <table id="t-prediksi"></table>
+    </section>
     <div class="grid">
       <section class="kartu"><h2>Pesanan masuk</h2><table id="t-pesanan"></table></section>
       <section class="kartu"><h2>Riwayat mutasi stok</h2><table id="t-mutasi"></table></section>
@@ -58,7 +72,43 @@
       : `<tr><td class="merah">${j.error}</td></tr>`;
   }
   document.getElementById('btn-telusur').addEventListener('click', telusuri);
+
+  let pred = null;
+  const angka = (n) => (n === null || n === undefined ? '—' : Number(n).toLocaleString('id-ID', { maximumFractionDigits: 1 }));
+  function gambar() {
+    const p = pred.produk.find((x) => x.kode === document.getElementById('pilih-produk').value) || pred.produk[0];
+    const y = p.riwayat.map((r) => r.jumlah);
+    const semua = y.concat(p.ramalan);
+    const W = 1100, H = 230, kiri = 44, kanan = 16, atas = 14, bawah = 34;
+    const maks = Math.max(1, ...semua) * 1.15;
+    const x = (i) => kiri + (i * (W - kiri - kanan)) / Math.max(1, semua.length - 1);
+    const yy = (v) => atas + (H - atas - bawah) * (1 - v / maks);
+    const garis = (pts, warna, putus) => `<polyline fill="none" stroke="${warna}" stroke-width="3" ${putus ? 'stroke-dasharray="7 6"' : ''} points="${pts.map(([i, v]) => `${x(i).toFixed(1)},${yy(v).toFixed(1)}`).join(' ')}"/>`;
+    const sumbuY = [0, maks / 2, maks].map((v) => `<line x1="${kiri}" x2="${W - kanan}" y1="${yy(v)}" y2="${yy(v)}" stroke="#e2e8f0"/><text x="${kiri - 6}" y="${yy(v) + 4}" font-size="12" text-anchor="end" fill="#64748b">${Math.round(v)}</text>`).join('');
+    const tgl2 = (s) => new Date(s).toLocaleDateString('id-ID', { day: '2-digit', month: 'short' });
+    const label = `<text x="${x(0)}" y="${H - 10}" font-size="12" fill="#64748b">${tgl2(p.riwayat[0].minggu)}</text>` +
+      `<text x="${x(y.length - 1)}" y="${H - 10}" font-size="12" text-anchor="middle" fill="#64748b">${tgl2(p.riwayat[y.length - 1].minggu)}</text>` +
+      `<text x="${x(semua.length - 1)}" y="${H - 10}" font-size="12" text-anchor="end" fill="#ea580c">+4 minggu</text>` +
+      `<line x1="${x(y.length - 1)}" x2="${x(y.length - 1)}" y1="${atas}" y2="${H - bawah}" stroke="#cbd5e1" stroke-dasharray="3 4"/>`;
+    document.getElementById('grafik').innerHTML = sumbuY + label +
+      garis(y.map((v, i) => [i, v]), '#2563eb', false) +
+      garis([[y.length - 1, y[y.length - 1]]].concat(p.ramalan.map((v, k) => [y.length + k, v])), '#ea580c', true);
+  }
+  async function muatPrediksi() {
+    pred = await (await fetch('/api/prediksi', { cache: 'no-store' })).json();
+    const sel = document.getElementById('pilih-produk');
+    if (!sel.options.length) sel.innerHTML = pred.produk.map((p) => `<option value="${p.kode}">${p.nama}</option>`).join('');
+    const sintetis = pred.produk.some((p) => p.sumber_riwayat.includes('sintetis'));
+    document.getElementById('ket-prediksi').innerHTML = `Metode: ${pred.metode}. ` +
+      (sintetis ? '<b>Riwayat 26 minggu adalah data sintetis untuk demo, bukan data mitra.</b> ' : '') +
+      `WAPE gabungan pada 4 minggu uji: model <b>${angka(pred.wape_gabungan_model)}%</b>, ramalan naif ${angka(pred.wape_gabungan_naif)}%.`;
+    document.getElementById('t-prediksi').innerHTML = '<tr><th>Produk</th><th>Rata-rata 4 minggu terakhir</th><th>Ramalan 4 minggu ke depan (per minggu)</th><th>Minggu berjalan</th><th>Stok tersedia</th><th>Cukup untuk</th><th>Saran produksi</th><th>WAPE model / naif</th></tr>' +
+      pred.produk.map((p) => `<tr><td>${p.nama}</td><td>${angka(p.rata_4_minggu)}</td><td>${p.ramalan.map(angka).join(' · ')}</td><td>${p.minggu_berjalan}</td><td>${p.stok_tersedia}</td><td>${p.cukup_hari === null ? '—' : '±' + p.cukup_hari + ' hari'}</td><td title="${p.alasan}"><b>${p.saran_produksi}</b></td><td>${angka(p.wape_model)}% / ${angka(p.wape_naif)}%</td></tr>`).join('');
+    gambar();
+  }
+  document.getElementById('pilih-produk').addEventListener('change', gambar);
   muat(); setInterval(muat, 2000);
+  muatPrediksi(); setInterval(muatPrediksi, 10000);
   </script>
 </body>
 </html>

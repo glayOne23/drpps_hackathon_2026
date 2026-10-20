@@ -217,3 +217,6 @@ def isi_data_contoh():
                                       no_bpom=f"TR-CONTOH-{i:03d}", stok_min=minimum)
             for no_batch, ed, jumlah, masuk in batch:
                 barang_masuk(p, no_batch, ed, jumlah, masuk)
+        # Riwayat permintaan 26 minggu untuk prediksi penjualan: DATA SINTETIS, bukan data mitra.
+        from .prediksi import isi_riwayat_sintetis
+        isi_riwayat_sintetis()

@@ -1,5 +1,5 @@
 Hasil uji otomatis purwarupa SIGAP (ARB-02)
-Dijalankan: 19-10-2026 23.11 WIB | Python 3.12.3 | Django 6.0.9 | PostgreSQL 16.14 | Node v22.22.2 | Dexie 3.2.7 (IndexedDB)
+Dijalankan: 20-10-2026 17.58 WIB | Python 3.12.3 | Django 6.0.9 | PostgreSQL 16.14 | Node v22.22.2 | Dexie 3.2.7 (IndexedDB)
 Browser: /usr/bin/google-chrome (tampilan HP 400 × 860)
 Cara uji: koneksi browser diputus lewat emulasi jaringan (setara mode pesawat), lalu dinyalakan kembali.
 ================================================================
@@ -22,8 +22,11 @@ LULUS  16. Penyesuaian stok (opname) mencatat selisih, batch, dan alasan — Jam
 LULUS  17. Dua pesanan bersamaan untuk 30 botol terakhir: satu diterima, satu ditolak, stok tidak minus — Madu Hutan: diterima dan ditolak; dipesan 30, tersedia 0
 LULUS  18. Dua ponsel tanpa sinyal memesan 10 botol saat tersedia 13: satu diterima, satu ditolak, stok tidak minus — HP 1 ditolak, HP 2 diterima; Sari Kurma dipesan 15, tersedia 3
 LULUS  19. Telusur batch menampilkan outlet penerima yang benar — MP-2603: Apotek Sehat Jebres 2 botol
+LULUS  20. Prediksi penjualan tersedia untuk 5 produk: ramalan 4 minggu ke depan dan saran produksi sesuai rumus — MDP250 55/4 mgg, saran 27; JKA200 32/4 mgg, saran 20; KHB060 21/4 mgg, saran 22; MDH500 26/4 mgg, saran 34; SKR330 20/4 mgg, saran 23
+LULUS  21. Permintaan minggu berjalan ikut menghitung baris yang ditolak dan mengabaikan pesanan batal — Kapsul 18 (3 diterima + 15 ditolak); Jamu 0 (4 botol dibatalkan)
+LULUS  22. Akurasi pada 4 minggu uji (data sintetis): WAPE model lebih kecil daripada ramalan naif — WAPE gabungan model 23% vs naif 28.7%
 ================================================================
-Ringkasan: 19 dari 19 pemeriksaan lulus.
+Ringkasan: 22 dari 22 pemeriksaan lulus.
 
 Tangkapan layar:
 - 01_online_katalog_dimuat.png
@@ -33,4 +36,5 @@ Tangkapan layar:
 - 06a_dua_ponsel_hp1.png
 - 06b_dua_ponsel_hp2.png
 - 05_panel_stok_batch_telusur.png
+- 08_prediksi_penjualan.png
 - 07_panel_lengkap_pesanan_mutasi.png

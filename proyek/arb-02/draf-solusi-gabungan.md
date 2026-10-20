@@ -43,7 +43,7 @@ Direktur melihat tiga laporan, ditambah daftar stok menipis dan daftar barang me
 - Jatuh tempo dengan status bayar, tanpa akuntansi.
 - Impor Excel dengan cek duplikat lewat nomor HP.
 - Riwayat mutasi, form penyesuaian stok (opname), dan tombol `wa.me`.
-- Purwarupa P3 (PHP + SQLite, 12/12 uji) sebagai titik awal, kini diganti purwarupa Django + PostgreSQL (19/19 uji, §11); serta 54 tanya-jawab juri.
+- Purwarupa P3 (PHP + SQLite, 12/12 uji) sebagai titik awal, kini diganti purwarupa Django + PostgreSQL (22/22 uji, §11); serta 54 tanya-jawab juri.
 
 ### 2.2 Diambil dari P1 dan P2
 
@@ -241,7 +241,7 @@ Satu aplikasi, satu basis data, tanpa layanan pihak ketiga.
 - batal, opname, dan telusur batch;
 - halaman sales satu halaman dengan Dexie.
 
-Uji otomatis di Chrome: **19/19 lulus** ([bukti](purwarupa/bukti/hasil_uji.txt)). Yang belum dibuat: peran/hak akses, kunjungan hari ini, impor Excel, dan dashboard direktur.
+Uji otomatis di Chrome: **22/22 lulus** ([bukti](purwarupa/bukti/hasil_uji.txt)). Sejak 20 Okt 2026 purwarupa juga punya **prediksi penjualan** (exponential smoothing Holt; riwayat 26 minggu data sintetis; WAPE model 23,0% vs naif 28,7% pada 4 minggu uji) beserta saran produksi. Yang belum dibuat: peran/hak akses, kunjungan hari ini, impor Excel, dan dashboard direktur lengkap.
 
 ## 12. Kebaruan dan kedalaman teknologi (bahan proposal)
 
@@ -343,7 +343,7 @@ Uji tambahan:
 
 | Tahap | Isi | Asal |
 |---|---|---|
-| Setelah pilot, ada data riwayat | Jatah stok per sales, peramalan permintaan (exponential smoothing), saran jumlah produksi | P2 |
+| Setelah pilot, ada data riwayat | Jatah stok per sales; uji akurasi prediksi penjualan pada data nyata (versi exponential smoothing + saran produksi sudah ada di purwarupa dengan data sintetis); model musiman/ML setelah data ≥ 1 tahun | P2 |
 | Kebutuhan lapangan | PWA penuh, foto kunjungan, verifikasi radius check-in | P2, SIGAP |
 | Kebutuhan mitra | Retur, banyak gudang, kanvas, ambang sisa umur per outlet | SIGAP v0.1 |
 | Integrasi | Ekspor/konektor Accurate, WhatsApp resmi, data untuk agen AI ARB-01 | SIGAP v0.1 |
@@ -356,7 +356,7 @@ Angka di bawah adalah perkiraan kami, bukan nilai resmi.
 |---|---|---|---|
 | Masalah–solusi (20%) | Sedang–kuat | Kuat | Indikator akurasi stok kini benar-benar dijawab (§5); bukti masalah P2 (satu nomor WA tanpa basis data) |
 | Tema kesehatan dan kedalaman teknologi (22%) | Lemah–sedang | **Sedang–kuat** | Batch, kedaluwarsa, FEFO, telusur batch (CPOTB); lima poin kedalaman (§12) |
-| Inovasi dan kelayakan (28%) | Inovasi lemah, kelayakan kuat | Inovasi sedang, **kelayakan tetap kuat** | Pembeda kesehatan tanpa teknologi baru; purwarupa Django 19/19 |
+| Inovasi dan kelayakan (28%) | Inovasi lemah, kelayakan kuat | Inovasi sedang, **kelayakan tetap kuat** | Pembeda kesehatan tanpa teknologi baru; purwarupa Django 22/22 |
 | Hilirisasi dan dampak (20%) | Sedang | Sedang–kuat | Target SUS dan tugas, validasi ≥ 5 narasumber, tim lengkap (P2) |
 | Fungsionalitas demo (25% ND) | Paling aman | Tetap aman | Tanpa pihak ketiga; skenario dua HP |
 
@@ -388,7 +388,7 @@ Angka di bawah adalah perkiraan kami, bukan nilai resmi.
 > CV Arba'in Jaya Mandiri, produsen dan distributor produk herbal terdaftar BPOM di Surakarta, memasok apotek dan minimarket melalui tim sales lapangan. Data pelanggan, kunjungan dan pesanan sales, serta stok belum terhubung, sehingga manajemen sulit memantau kinerja sales, riwayat pesanan tiap outlet, dan akurasi stok. Kami mengusulkan SIGAP, aplikasi web ringan yang menyatukan ketiganya. Sales membuka daftar kunjungan hari ini yang sudah diurutkan beserta alasannya, check-in, lalu mengulang pesanan terakhir dalam hitungan detik; bila sinyal hilang, pesanan tersimpan di ponsel dan terkirim otomatis tepat satu kali. Satu pesanan langsung mengurangi stok tersedia serta menambah riwayat outlet dan capaian target tanpa input ulang. Stok fisik baru berkurang saat gudang mengirim barang, sehingga hasil stock opname tetap akurat. Gudang mencatat batch dan tanggal kedaluwarsa, mengirim batch tertua lebih dulu, dan dapat menelusuri outlet penerima setiap batch untuk penanganan keluhan atau penarikan produk. Direktur memantau performa sales, outlet paling aktif, perputaran stok, serta stok menipis dan mendekati kedaluwarsa dari satu dashboard. Data lama dari Excel dipindahkan dengan templat impor dan pemeriksaan duplikat. Solusi berpotensi diadopsi UKM herbal dan jamu lain dengan model langganan berbiaya rendah. Kegiatan meliputi validasi alur bersama mitra, purwarupa saat hackathon, uji kegunaan, dan uji coba terbatas hingga April 2027. TKT awal 3, target TKT 6.
 
 **Kondisi awal (jujur).**
-- TKT 3: purwarupa Django–PostgreSQL lulus 19/19 uji (mode tanpa sinyal, kode unik, stok fisik/dipesan, FEFO, konkurensi; §11).
+- TKT 3: purwarupa Django–PostgreSQL lulus 22/22 uji (mode tanpa sinyal, kode unik, stok fisik/dipesan, FEFO, konkurensi, prediksi penjualan pada data sintetis; §11).
 - **Belum dibuat:** pemisahan stok fisik/dipesan, batch, empat peran, kunjungan berprioritas, dan dashboard.
 - Pilihannya:
   - perbarui purwarupa ke model stok §5 (±½ hari-orang), lalu jalankan ulang uji untuk bukti C.5;

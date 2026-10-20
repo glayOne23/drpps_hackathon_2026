@@ -93,6 +93,19 @@ class PengirimanBatch(models.Model):
         verbose_name_plural = "pengiriman batch"
 
 
+class PermintaanMingguan(models.Model):
+    """Riwayat permintaan per minggu dari luar SIGAP (mis. rekap Excel lama saat migrasi), dasar prediksi penjualan."""
+    SUMBER = [("impor", "Impor rekap penjualan"), ("sintetis", "Data sintetis (demo)")]
+    produk = models.ForeignKey(Produk, on_delete=models.CASCADE, related_name="permintaan_mingguan")
+    minggu = models.DateField("minggu (Senin)")
+    jumlah = models.PositiveIntegerField()
+    sumber = models.CharField(max_length=10, choices=SUMBER)
+
+    class Meta:
+        verbose_name_plural = "permintaan mingguan"
+        constraints = [models.UniqueConstraint(fields=["produk", "minggu"], name="permintaan_unik_per_minggu")]
+
+
 class MutasiStok(models.Model):
     JENIS = [
         ("masuk", "Barang masuk"),

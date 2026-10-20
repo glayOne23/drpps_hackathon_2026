@@ -10,7 +10,7 @@ from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET, require_POST
 
-from . import stok
+from . import prediksi, stok
 from .models import Batch, MutasiStok, Outlet, Pesanan, Produk
 
 HARI_MENDEKATI_KEDALUWARSA = 90
@@ -123,6 +123,11 @@ def ringkasan(request):
                    for m in MutasiStok.objects.select_related("produk", "batch")[:30]],
         "waktu_server": timezone.now().isoformat(),
     })
+
+
+@require_GET
+def prediksi_penjualan(request):
+    return JsonResponse(prediksi.semua())
 
 
 @csrf_exempt

@@ -1,6 +1,13 @@
 from django.contrib import admin
 
-from .models import Batch, MutasiStok, Outlet, PengirimanBatch, Pesanan, PesananItem, Produk
+from .models import (Batch, MutasiStok, Outlet, PengirimanBatch, PermintaanMingguan, Pesanan, PesananItem,
+                     Produk)
+
+
+@admin.register(PermintaanMingguan)
+class PermintaanMingguanAdmin(admin.ModelAdmin):
+    list_display = ("produk", "minggu", "jumlah", "sumber")
+    list_filter = ("produk", "sumber")
 
 
 @admin.register(Outlet)

@@ -15,10 +15,16 @@ Purwarupa ini menjadi bukti Lampiran C.5 proposal [Proposal_AntechAsync_SIGAP.do
   - Opname membandingkan hitungan rak dengan stok fisik.
   - Semua perubahan berjalan di `transaction.atomic` dengan `select_for_update()` dan tercatat di `MutasiStok`.
 - **Kode unik `client_uuid`**: pengiriman ulang dijawab `duplikat`, sehingga pesanan tercatat tepat sekali.
-- **Panel uji admin** (`/panel/`): stok fisik/dipesan/tersedia, batch dan kedaluwarsa, telusur batch, pesanan, dan mutasi.
+- **Prediksi penjualan** (`penjualan/prediksi.py`, `GET /api/prediksi`): ramalan permintaan 4 minggu per produk untuk saran produksi.
+  - Permintaan mingguan = riwayat dari luar SIGAP (`PermintaanMingguan`, mis. rekap Excel lama) + pesanan SIGAP. Baris yang ditolak karena stok kurang ikut dihitung; pesanan batal tidak.
+  - Metode: exponential smoothing dengan tren (Holt), parameter dipilih otomatis, Python murni tanpa pustaka tambahan.
+  - Akurasi: 4 minggu terakhir disisihkan, lalu WAPE dibandingkan dengan ramalan naif (minggu depan = minggu terakhir).
+  - Saran produksi = perkiraan 4 minggu + stok minimum − stok tersedia (minimal 0), beserta "stok cukup untuk ± hari".
+  - **Riwayat 26 minggu di data contoh adalah data sintetis** (`isi_riwayat_sintetis`, benih acak tetap), bukan data mitra.
+- **Panel uji admin** (`/panel/`): stok fisik/dipesan/tersedia, batch dan kedaluwarsa, telusur batch, prediksi penjualan (grafik + tabel), pesanan, dan mutasi.
 - **Django admin** (`/admin/`) untuk semua tabel. Buat akun dengan `python manage.py createsuperuser`.
 
-**Belum dibuat:** login dan hak akses per peran, kunjungan hari ini, check-in GPS, impor Excel, dan dashboard direktur. Data contoh bersifat fiktif, termasuk nomor BPOM `TR-CONTOH-…`.
+**Belum dibuat:** login dan hak akses per peran, kunjungan hari ini, check-in GPS, impor Excel, dan dashboard direktur lengkap. Data contoh bersifat fiktif, termasuk nomor BPOM `TR-CONTOH-…`.
 
 ## Menjalankan
 
@@ -52,12 +58,13 @@ Koneksi basis data diatur lewat variabel `SIGAP_DB_HOST`, `SIGAP_DB_PORT`, `SIGA
 SIGAP_PYTHON=.venv/bin/python npm run uji
 ```
 
-Skrip `uji/e2e.js` menjalankan migrasi, menyalakan server Django di port 8099, dan mengisi ulang data contoh. Setelah itu skrip membuka Chrome dengan tampilan HP dan memeriksa 19 hal:
+Skrip `uji/e2e.js` menjalankan migrasi, menyalakan server Django di port 8099, dan mengisi ulang data contoh. Setelah itu skrip membuka Chrome dengan tampilan HP dan memeriksa 22 hal:
 - mode tanpa sinyal dan pengiriman tepat sekali;
 - stok tersedia vs stok fisik;
 - konfirmasi kirim dengan FEFO, batal, dan opname tanpa selisih palsu;
 - dua pesanan bersamaan dan dua ponsel tanpa sinyal yang memesan stok terakhir;
-- telusur batch.
+- telusur batch;
+- prediksi penjualan: saran produksi sesuai rumus, baris ditolak ikut dihitung, dan WAPE model lebih kecil daripada ramalan naif pada data sintetis.
 
 Hasilnya tersimpan di `bukti/`:
 
@@ -67,6 +74,7 @@ Hasilnya tersimpan di `bukti/`:
 | `01`–`04` | Halaman sales: online, tanpa sinyal, terkirim otomatis, pesanan melebihi stok ditolak |
 | `05_panel_stok_batch_telusur.png` | Panel: stok fisik/dipesan/tersedia, batch, telusur batch MP-2603 |
 | `06a`, `06b` | Dua ponsel tanpa sinyal memesan stok terakhir: satu diterima, satu ditolak |
-| `07_panel_lengkap_pesanan_mutasi.png` | Panel lengkap dengan pesanan dan riwayat mutasi |
+| `07_panel_lengkap_pesanan_mutasi.png` | Panel lengkap dengan prediksi, pesanan, dan riwayat mutasi |
+| `08_prediksi_penjualan.png` | Panel prediksi penjualan: grafik riwayat (sintetis) + ramalan 4 minggu, saran produksi, WAPE model vs naif |
 
-Gambar Lampiran C.5a–c di proposal disusun dari tangkapan layar ini dan disimpan di [../lampiran/](../lampiran/). Hasil terakhir: **19/19 lulus** (19 Okt 2026; Python 3.12.3, Django 6.0.9, PostgreSQL 16.14, Chrome 152).
+Gambar Lampiran C.5a–d di proposal disusun dari tangkapan layar ini dan disimpan di [../lampiran/](../lampiran/). Hasil terakhir: **22/22 lulus** (20 Okt 2026; Python 3.12.3, Django 6.0.9, PostgreSQL 16.14, Chrome 152). WAPE gabungan pada 4 minggu uji (data sintetis): model 23,0%, ramalan naif 28,7%; model lebih akurat pada 4 dari 5 produk.

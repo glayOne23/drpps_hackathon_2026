@@ -242,6 +242,28 @@ const waktuWIB = () => new Intl.DateTimeFormat('id-ID', {
     const bawah = await panel.evaluate(() => Math.ceil(document.querySelector('main > .grid').getBoundingClientRect().bottom) + 12);
     await panel.screenshot({ path: path.join(BUKTI, '05_panel_stok_batch_telusur.png'), clip: { x: 0, y: 0, width: 1000, height: bawah } });
     gambar.push('05_panel_stok_batch_telusur.png');
+
+    // 12) Prediksi penjualan (riwayat 26 minggu = data sintetis) dan saran produksi
+    const pr = await api('/api/prediksi');
+    const sesuaiRumus = pr.produk.every((x) => x.ramalan.length === 4 && x.ramalan.every((v) => v >= 0) &&
+      x.saran_produksi === Math.max(0, x.kebutuhan_4_minggu + x.stok_min - x.stok_tersedia));
+    cek('Prediksi penjualan tersedia untuk 5 produk: ramalan 4 minggu ke depan dan saran produksi sesuai rumus',
+      pr.produk.length === 5 && sesuaiRumus && pr.produk.every((x) => x.jumlah_minggu >= 26),
+      pr.produk.map((x) => `${x.kode} ${x.kebutuhan_4_minggu}/4 mgg, saran ${x.saran_produksi}`).join('; '));
+    const kapP = pr.produk.find((x) => x.kode === 'KHB060');
+    const jamuP = pr.produk.find((x) => x.kode === 'JKA200');
+    cek('Permintaan minggu berjalan ikut menghitung baris yang ditolak dan mengabaikan pesanan batal',
+      kapP.minggu_berjalan === 18 && jamuP.minggu_berjalan === 0,
+      `Kapsul 18 (3 diterima + 15 ditolak); Jamu 0 (4 botol dibatalkan)`);
+    cek('Akurasi pada 4 minggu uji (data sintetis): WAPE model lebih kecil daripada ramalan naif',
+      pr.wape_gabungan_model !== null && pr.wape_gabungan_model < pr.wape_gabungan_naif,
+      `WAPE gabungan model ${pr.wape_gabungan_model}% vs naif ${pr.wape_gabungan_naif}%`);
+    await panel.reload({ waitUntil: 'networkidle0' });
+    await panel.waitForFunction(() => document.querySelectorAll('#t-prediksi tr').length === 6, { timeout: 10000 });
+    await panel.addStyleTag({ content: '.atas { position: static; }' }); // header lengket tidak menutupi tangkapan layar
+    const bagian = await panel.$('#bagian-prediksi');
+    await bagian.screenshot({ path: path.join(BUKTI, '08_prediksi_penjualan.png') });
+    gambar.push('08_prediksi_penjualan.png');
     await foto(panel, '07_panel_lengkap_pesanan_mutasi.png');
   } catch (e) {
     cek('Uji berjalan tanpa galat', false, e.message);
