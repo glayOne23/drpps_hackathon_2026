@@ -1,6 +1,6 @@
 # SIGAP: purwarupa Django + PostgreSQL (ARB-02)
 
-Purwarupa ini menjadi bukti Lampiran C.5 proposal [Proposal_AntechAsync_SIGAP.docx](../Proposal_AntechAsync_SIGAP.docx). Aturan stok yang dipakai sama dengan Tabel C.2 proposal dan §5 [draf solusi](../draf-solusi-gabungan.md).
+Purwarupa ini menjadi bukti Lampiran C.5 proposal [Proposal_AntechAsync_v02_SIGAP_2026-10-20.docx](../Proposal_AntechAsync_v02_SIGAP_2026-10-20.docx). Aturan stok yang dipakai sama dengan Tabel C.2 proposal dan §5 [draf solusi](../draf-solusi-gabungan.md).
 
 ## Yang sudah berjalan
 

@@ -7,7 +7,7 @@
 > **Dasar:**
 > - **Fondasi:** SIGAP v0.3, yaitu P3 ([docx](../../referensi/ideas/Proposal_3_NamaTim_SIGAP.docx); folder kerja P3 sudah tidak ada di repo). Purwarupanya sudah dipindahkan ke Django + PostgreSQL di [purwarupa/](purwarupa/).
 > - **Ditambah kelebihan** dari ARBAIN CRM, yaitu P1 ([docx](../../referensi/ideas/Proposal_1_ARBAIN_CRM_UMS_Hackathon_2026_Draft.docx)).
-> - **Ditambah kelebihan** dari ArbaSync, yaitu P2 ([pdf](../../referensi/ideas/Proposal_2_AntechAsync_ArbaSync.pdf)).
+> - **Ditambah kelebihan** dari ArbaSync, yaitu P2 ([pdf](Proposal_AntechAsync_v01_ArbaSync_2026-10-19.pdf)).
 >
 > **Penanda:** `[asumsi]` = belum dikonfirmasi mitra · `[target]` = hasil yang ingin dicapai · `[pilih]` = keputusan tim
 
@@ -362,7 +362,7 @@ Angka di bawah adalah perkiraan kami, bukan nilai resmi.
 
 ## 18. Bahan proposal
 
-> **Sudah dibuat (19 Okt 2026):** [Proposal_AntechAsync_SIGAP.docx](Proposal_AntechAsync_SIGAP.docx) dan [pratinjau PDF](PRATINJAU_Proposal_AntechAsync_SIGAP.pdf).
+> **Sudah dibuat (19 Okt 2026):** [Proposal_AntechAsync_v02_SIGAP_2026-10-20.docx](Proposal_AntechAsync_v02_SIGAP_2026-10-20.docx) dan [pratinjau PDF](PRATINJAU_Proposal_AntechAsync_v02_SIGAP_2026-10-20.pdf).
 > - Dibuat dari docx SIGAP (P3) yang berasal dari template resmi.
 > - Isi dipadatkan agar muat: ringkasan 189 kata; bagian 1–4 di hlm 3–4 dan bagian 5–7 di hlm 5 (dicek dengan render Tahoma).
 > - Pustaka Bisnis.com dan Espos dibuang untuk menghemat ruang.
