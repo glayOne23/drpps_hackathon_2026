@@ -31,20 +31,32 @@ Tombol kembali (←) di S2c dan S2d sudah diarahkan ke S2 dan S2a (5 Nov 2026).
 
 Masih terbuka:
 
-6. S3b (tanpa sinyal) belum punya tombol "Ulangi pesanan terakhir".
-7. Outlet ke-2 di S1 masih langsung membuka S3b tanpa check-in.
+6. S3b (tanpa sinyal) belum punya tombol "Ulangi pesanan terakhir". Menyalin tombol dari S3 lewat browser gagal (paste dan seret layer tidak berjalan), jadi perlu dikerjakan langsung di Figma atau lewat Figma MCP.
+7. Outlet ke-2 di S1 masih langsung membuka S3b tanpa check-in (jalan pintas demo mode tanpa sinyal).
 
-## Hotspot prototype yang belum tersambung
+## Hotspot prototype
 
-- S0 "Lupa kata sandi?" (sales), S4 "Kirim sekarang", S3b "Lihat semua 16 produk", D1 baris "Toko Obat Waras".
-- Outlet ke-3 sampai ke-5 di S1 membuka S2a milik Apotek Sehat Jebres.
-- Dua flow bernama sama, "2 · Admin penjualan". Ganti nama salah satunya (misalnya "2b · Pembayaran").
+Sudah disambungkan (5 Nov 2026):
 
-## Data yang tidak konsisten
+- S0 "Lupa kata sandi? Hubungi admin penjualan" → WhatsApp (belum ada layar reset sandi untuk sales).
+- S3b "Lihat semua 16 produk" → S3c.
+- D1 baris "Toko Obat Waras · Budi" → S6 Kelola pesanan.
+- Flow "2 · Admin penjualan" yang kedua (mulai dari L1a) diganti nama menjadi "2b · Lupa kata sandi (kantor)".
 
-- S2: pesanan 19 Okt tertulis Rp1.420.000, tetapi "Ulangi" di S3 menghasilkan Rp915.000. Tempo 30 hari juga tidak cocok dengan jatuh tempo 3 Nov.
-- D1: "Pesanan hari ini 14", padahal jumlah per status 13. Budi "1/5 outlet · 2 pesanan", padahal S4 menulis 5 pesanan hari ini dan S1 menunjukkan 2 check-in.
-- S9: Direktur berlabel "Hanya baca", tetapi punya tombol "Atur target".
+Masih terbuka:
+
+- S4 "Kirim sekarang" belum tersambung; butuh layar/state "antrean terkirim".
+- Outlet ke-3 sampai ke-5 di S1 membuka S2a milik Apotek Sehat Jebres; butuh varian S2a per outlet.
+
+## Data yang tidak konsisten (sudah diperbaiki 5 Nov 2026)
+
+| Masalah | Perbaikan |
+|---|---|
+| S2: pesanan 19 Okt Rp1.420.000 "Belum bayar", tetapi "Ulangi" menghasilkan Rp915.000; tempo 30 hari tidak cocok dengan jatuh tempo 3 Nov | Riwayat S2 menjadi: 19 Okt · Rp915.000 · Lunas; 4 Okt · 3 produk · Rp1.420.000 · Belum bayar (4 Okt + 30 hari = 3 Nov); 21 Sep tetap. Selang ±14 hari tetap cocok. |
+| D1: "Pesanan hari ini 14", padahal rincian status berjumlah 13 dan memuat status lintas hari | KPI menjadi "Pesanan 7 hari · 13" dan panel "Pesanan 7 hari per status". |
+| D1: Budi "1/5 outlet · 2 pesanan · check-in 08.20 Apotek Sehat Jebres" tidak cocok dengan S1/S4 | Menjadi "5/5 outlet · 5 pesanan", check-in terakhir 09.20 Toko Herbal Sumber Waras, progress bar penuh. |
+| S4: jam status bar 09.05, padahal ada pesanan PS-1105 pukul 09.20 | Jam diubah ke 09.25. |
+| S9 dan S9a: Direktur berlabel "Hanya baca", padahal punya "Atur target" | Label peran menjadi "Laporan & target". |
 
 ## UI
 
