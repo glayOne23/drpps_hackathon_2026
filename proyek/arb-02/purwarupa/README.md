@@ -7,7 +7,7 @@ Purwarupa ini menjadi bukti Lampiran C.5 proposal [Proposal_AntechAsync_v02_SIGA
 - **Halaman sales satu halaman** (`/`) untuk HP.
   - Pesanan selalu disimpan dulu di IndexedDB (Dexie.js) dengan kode unik.
   - Pesanan dikirim otomatis saat sinyal ada. Pemicunya: event `online`, pengecekan tiap 15 detik, atau tombol **Kirim sekarang**.
-  - Tidak memakai PWA. Halaman harus sudah terbuka sebelum sinyal hilang.
+  - Belum memakai PWA. Halaman harus sudah terbuka sebelum sinyal hilang. Sejak 4 Nov 2026 proposal memakai PWA (manifest + service worker), dan akan ditambahkan saat hackathon (uji no. 28 di Lampiran C).
 - **Aturan stok** (`penjualan/stok.py`): stok tersedia = stok fisik − stok dipesan.
   - Pesanan menaikkan stok dipesan.
   - Konfirmasi kirim menurunkan stok fisik dan stok dipesan, mengambil batch dengan kedaluwarsa terdekat (FEFO), dan mencatat outlet penerima tiap batch.

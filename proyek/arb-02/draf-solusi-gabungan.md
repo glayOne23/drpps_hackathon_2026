@@ -172,7 +172,7 @@ Mitigasinya:
 - SOP: buka aplikasi pagi saat ada sinyal, jangan tutup tab;
 - `navigator.storage.persist()`.
 
-**Diputuskan 19 Okt 2026: tanpa PWA.** Service worker minimal (±30 baris, tanpa Workbox) dicatat sebagai pengembangan lanjutan, bila uji lapangan menunjukkan Android sering menutup tab di latar belakang.
+~~**Diputuskan 19 Okt 2026: tanpa PWA.**~~ **Diperbarui 4 Nov 2026: memakai PWA.** Halaman sales dibuat sebagai PWA: manifest (pasang di layar utama) dan service worker yang menyimpan cangkang aplikasi, sehingga halaman tetap bisa dibuka dari nol dan di-*refresh* saat tanpa sinyal. Pengiriman tetap memakai event `online`, pengecekan 15 detik, dan tombol "Kirim sekarang" (bukan Background Sync, karena belum didukung semua browser). Syarat dan mitigasi tanpa PWA di atas menjadi cadangan bila service worker gagal terpasang. Rancangan Figma "SIGAP · Hi-fi v2" (S0 "Pasang di layar utama", catatan teknis PWA) sudah sejalan.
 
 ## 8. Peran dan hak akses (4 peran)
 
