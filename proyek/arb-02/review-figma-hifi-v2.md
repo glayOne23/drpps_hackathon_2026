@@ -15,13 +15,22 @@ Sumber: [Figma ARB-02](https://www.figma.com/design/cvBD4wgdf2jIGWW8NGOJZ7/SIGAP
 |---|---|
 | Total PS-1104 salah hitung: 4×95rb + 3×45rb + 2×120rb = Rp755.000, tertulis Rp650.000 | Diganti di S4a, S6, S6a, S6c, S6d, S6e (14 teks). Kekurangan bayar Rp400.000 → Rp505.000 (13 teks). PS-1105 (Rp400.000) tidak diubah. |
 
-## Langkah yang hilang di alur (belum diperbaiki)
+## Langkah yang hilang di alur
 
-1. **Hasil kunjungan tidak bisa dicatat.** Sesudah check-in, sales tidak punya cara mencatat "tidak order + alasan" atau check-out, padahal tabel `kunjungan` memuat kolom "hasil kunjungan" dan kinerja sales harus terpantau. Usul: tambah tombol "Selesai kunjungan" di S2 dengan pilihan hasil (pesan / tidak order + alasan / tutup).
-2. **Check-in bisa dilewati.** Tombol "Lewati, buat pesanan" di S2a, dan outlet ke-2 di S1 langsung membuka S3b tanpa check-in. Usul: wajibkan alasan bila check-in dilewati, dan tampilkan di D1.
-3. **Tidak ada konfirmasi sesudah "Kirim pesanan".** Prototype langsung pindah ke S4, dan outlet tidak ditandai selesai di S1. Usul: toast/sheet "Pesanan tersimpan", lalu kembali ke S1 dengan outlet bertanda ✓.
-4. **Pesanan ditolak buntu.** Kartu "Ditolak" di S4 tidak bisa diklik, jadi tidak ada langkah lanjut (pesan ulang sesuai sisa stok, atau kabari outlet via WhatsApp).
+Butir 1–4 sudah ditambahkan ke Figma sebagai layar usulan (dibuat lewat browser dengan menduplikasi layar mirip, ditempatkan di kanan S4a, nama berakhiran "(usulan)") dan sudah tersambung di prototype:
+
+| Usulan | Layar baru | Masuk dari | Keluar ke |
+|---|---|---|---|
+| 1. Catat hasil kunjungan (pesan / tidak order + alasan / tutup, kunjungan berikutnya, check-out) | S2c · Hasil kunjungan | S2, tombol "Selesai kunjungan" (sebelumnya "Chat WhatsApp outlet") | Simpan → S1; Batal → S2 |
+| 2. Alasan wajib saat check-in dilewati, ditandai untuk admin penjualan | S2d · Alasan lewati check-in | S2a, tombol "Lewati check-in" | Lanjut → S3; Kembali → S2a |
+| 3. Konfirmasi pesanan tersimpan, outlet ditandai selesai, saran outlet berikutnya | S4b · Pesanan tersimpan | S3, "Kirim pesanan" (sebelumnya langsung ke S4) | Lanjut → S1; Lihat pesanan → S4 |
+| 4. Tindak lanjut pesanan ditolak | S4c · Tindak lanjut pesanan ditolak | S4, kartu "Ditolak" | Pesan produk pengganti → S3c; Kabari outlet → WhatsApp |
+
+Masih terbuka:
+
 5. **"Ulangi pesanan terakhir" tidak tersambung**, padahal ini fitur inti (target ≤15 detik). S3 sudah terisi sejak awal, dan S3b (tanpa sinyal) tidak punya tombol ini. Usul: S3 mulai kosong → tombol Ulangi → S3 terisi.
+6. Tombol kembali (←) di S2c dan S2d masih mengikuti layar asal (S1a). Sebaiknya diarahkan ke S2 dan S2a.
+7. Outlet ke-2 di S1 masih langsung membuka S3b tanpa check-in.
 
 ## Hotspot prototype yang belum tersambung
 
@@ -39,3 +48,50 @@ Sumber: [Figma ARB-02](https://www.figma.com/design/cvBD4wgdf2jIGWW8NGOJZ7/SIGAP
 
 - Di S1, tombol "Outlet baru" menutupi kartu outlet ke-5.
 - Halaman sales tidak punya menu profil/keluar.
+
+## Celah alur (flow hole) per peran
+
+Situasi nyata yang belum punya alur, baik di desain maupun di proposal. Prioritas: **T** = tinggi (mengganggu tujuan utama proposal), **S** = sedang, **R** = rendah / setelah MVP.
+
+### Sales
+| Celah | Kenapa penting | Pri |
+|---|---|---|
+| **Retur / barang kedaluwarsa dari outlet** | Produk herbal punya masa simpan; tanpa alur retur, stok dan riwayat outlet tidak pernah dikoreksi, dan telusur batch (CPOTB) berhenti di pengiriman. Tidak ada di proposal maupun desain. | T |
+| **Edit atau batalkan pesanan yang masih di antrean HP** (belum terkirim) | Salah input saat tanpa sinyal tidak bisa diperbaiki sebelum terkirim; satu-satunya jalan adalah admin membatalkan setelah stok terlanjur dipesan. | T |
+| **Kunjungan ke outlet di luar daftar hari ini** | S1 hanya berisi 5 outlet terjadwal; tidak ada pencarian outlet terdaftar lain (selain "Outlet baru"). | S |
+| **Pembukaan pertama tanpa sinyal / data belum tersinkron** | PWA bisa terbuka dari nol, tetapi belum ada layar untuk "katalog belum pernah diunduh" atau "data stok sudah >24 jam". | S |
+| **GPS ditolak / izin lokasi dimatikan** | S2a mengandaikan GPS selalu ada; perlu state izin ditolak (berbeda dari "GPS lemah" di S2d). | S |
+| **Penagihan oleh sales** | S2 menampilkan tagihan jatuh tempo besok, tetapi sales tidak bisa mencatat "uang diterima / janji bayar"; pencatatan hanya di S6c oleh admin. | S |
+| **HP hilang / ganti HP dengan antrean belum terkirim**, logout | Antrean IndexedDB hilang tanpa jejak; tidak ada menu keluar. | R |
+
+### Admin penjualan
+| Celah | Kenapa penting | Pri |
+|---|---|---|
+| **Outlet baru ditolak** (S5e punya tombol "Tolak") | Tidak jelas nasib pesanan PS-1105 yang tertahan dan bagaimana sales diberi tahu. | T |
+| **Kelola akun pengguna & penugasan outlet ke sales** | Proposal memakai hak akses per peran dan "sales hanya melihat outlet miliknya", tetapi tidak ada layar membuat akun, menonaktifkan sales keluar, atau memindahkan outlet antar-sales. | T |
+| **Reset kata sandi** | L1a menyebut "kata sandi sementara dibuat direktur", tetapi direktur tidak punya layar untuk itu. | S |
+| **Pesanan via telepon/WA langsung dari outlet** (tanpa sales) | Pesanan masuk kantor tidak punya form; akan dicatat di luar sistem lagi. | S |
+| **Ubah jumlah pesanan sebelum kirim** | Hanya ada batal penuh (S6a); koreksi kecil memaksa batal lalu pesan ulang. | S |
+| **Piutang menunggak → tahan pesanan baru** | Tidak ada aturan/alur blokir outlet yang lewat jatuh tempo. | R |
+
+### Admin gudang
+| Celah | Kenapa penting | Pri |
+|---|---|---|
+| **Recall batch setelah telusur** | S8 menampilkan outlet penerima, tetapi tidak ada tindak lanjut: tandai batch "ditarik", blokir dari FEFO, catat barang kembali. Ini inti klaim CPOTB di proposal. | T |
+| **Barang rusak / kedaluwarsa di gudang (pemusnahan)** | Opname S7b hanya "penyesuaian"; perlu jenis mutasi pemusnahan dengan alasan dan batch. | S |
+| **Pengiriman sebagian / gagal kirim** (outlet tutup, ditolak di tempat) | Konfirmasi kirim S8a bersifat sekali jalan; tidak ada alur kirim ulang atau barang kembali. | S |
+| **Bukti serah terima / surat jalan** | Tidak ada cetak surat jalan atau tanda terima outlet sebagai bukti kirim. | R |
+
+### Direktur
+| Celah | Kenapa penting | Pri |
+|---|---|---|
+| **Tindak lanjut saran produksi** | S9 memberi angka saran produksi tetapi tidak bisa disetujui/diteruskan; hasilnya tidak bisa dibandingkan dengan realisasi. | S |
+| **Kelola master data (produk baru, harga, stok minimum)** | S7c dipegang admin gudang; tidak jelas siapa yang menyetujui perubahan harga. | S |
+| **Ekspor laporan** (bulanan, per sales) | Dashboard hanya tampilan; tidak ada unduh laporan untuk rapat. | R |
+
+### Lintas peran
+| Celah | Kenapa penting | Pri |
+|---|---|---|
+| **Notifikasi antar-peran** | Sales tidak diberi tahu bila pesanan ditolak/diterima sebagian setelah ia pergi; admin tidak diberi tahu outlet baru masuk. Saat ini mengandalkan membuka layar. | T |
+| **Log audit yang bisa dilihat** | Proposal menjanjikan "log sesuai UU PDP", tetapi tidak ada layar untuk melihatnya. | S |
+| **Dua sales mendaftarkan outlet yang sama saat tanpa sinyal** | Deteksi duplikat hanya untuk impor Excel (S5c), belum untuk outlet baru dari HP. | S |
