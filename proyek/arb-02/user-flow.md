@@ -1,6 +1,6 @@
 # User flow SIGAP (ARB-02)
 
-Disusun dari [proposal v03](Proposal_AntechAsync_v03_SIGAP_2026-11-04.docx) (Tabel C.2, C.3) dan Figma "SIGAP · Hi-fi v2". Kode layar (S1, S2a, …) mengikuti nama frame di Figma. Langkah bertanda **(usulan)** sudah ditambahkan ke Figma sebagai layar S2c, S2d, S4b, S4c (4 Nov 2026) dan S3e (5 Nov 2026), tetapi belum ada di purwarupa; lihat [review-figma-hifi-v2.md](review-figma-hifi-v2.md).
+Disusun dari [proposal v03](Proposal_AntechAsync_v03_SIGAP_2026-11-04.docx) (Tabel C.2, C.3) dan Figma "SIGAP · Hi-fi v2". Kode layar (S1, S2a, …) mengikuti nama frame di Figma. Langkah bertanda **(usulan)** sudah ditambahkan ke Figma sebagai layar S2c, S2d, S4b, S4c (4 Nov 2026), S3e dan S7d (5 Nov 2026), tetapi belum ada di purwarupa; lihat [review-figma-hifi-v2.md](review-figma-hifi-v2.md).
 
 Versi visual (5 diagram, dibuat dari kode di bawah lewat "Convert Mermaid code to diagram"): [FigJam — SIGAP User Flow (ARB-02)](https://www.figma.com/board/Dtii8Pg38TnDXi29melNsM/SIGAP-%E2%80%94-User-Flow--ARB-02-). Diagram Sales ada di paling kanan board (dikonversi ulang 5 Nov 2026 dengan S3e). Bila alur berubah, ubah kode di sini lalu konversi ulang di FigJam.
 
@@ -58,6 +58,8 @@ flowchart TD
     C --> C1[S7a Barang masuk<br/>batch + kedaluwarsa]
     C --> C2[S7b Penyesuaian stok opname<br/>alasan wajib]
     C --> C3[S7c Ubah data produk]
+    C --> C4{{"S7d Tambah produk baru<br/>stok awal 0 (usulan)"}}
+    C4 -->|lalu catat stok| C1
     B --> D[S8 Pengiriman dan telusur batch]
     D --> D1[S8a Konfirmasi kirim FEFO<br/>stok fisik dan dipesan berkurang]
     D --> D2[Telusur nomor batch<br/>outlet penerima, unduh Excel]

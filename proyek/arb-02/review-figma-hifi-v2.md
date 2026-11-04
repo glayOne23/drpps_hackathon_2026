@@ -27,6 +27,14 @@ Butir 1–4 sudah ditambahkan ke Figma sebagai layar usulan (dibuat lewat browse
 | 4. Tindak lanjut pesanan ditolak | S4c · Tindak lanjut pesanan ditolak | S4, kartu "Ditolak" | Pesan produk pengganti → S3c; Kabari outlet → WhatsApp |
 | 5. "Ulangi pesanan terakhir" tersambung (fitur inti, target ≤15 detik) — 5 Nov 2026 | S3e · Form pesanan kosong (semua jumlah 0, total Rp0) | S2, "Buat pesanan" (sebelumnya langsung ke S3 yang sudah terisi) | "Ulangi pesanan terakhir" → S3 (terisi 21 botol, Rp915.000); tombol Kirim di S3e sengaja tanpa interaksi |
 
+Usulan untuk admin gudang (5 Nov 2026):
+
+| Usulan | Layar baru | Masuk dari | Keluar ke |
+|---|---|---|---|
+| 6. Tambah produk baru ke master data (kode, nama, kategori, satuan, harga, no. BPOM wajib, stok minimum). Stok awal selalu 0; stok bertambah lewat S7a Barang masuk per batch agar kedaluwarsa tercatat | S7d · Tambah produk baru (duplikat S7c, contoh MDK02 Madu Daun Kelor, Rp60.000, TR-CONTOH-017) | S7, tombol baru "+ Produk baru" di antara "Penyesuaian (opname)" dan "+ Barang masuk" | Simpan produk / Batal → S7 |
+
+Keputusan yang masih terbuka: apakah harga produk baru perlu disetujui direktur sebelum produk muncul di katalog sales (lihat celah "Kelola master data" di bawah). Di purwarupa, produk saat ini hanya bisa ditambah lewat Django admin (`/admin/`).
+
 Tombol kembali (←) di S2c dan S2d sudah diarahkan ke S2 dan S2a (5 Nov 2026).
 
 Masih terbuka:
