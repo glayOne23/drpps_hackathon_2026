@@ -25,11 +25,13 @@ Butir 1–4 sudah ditambahkan ke Figma sebagai layar usulan (dibuat lewat browse
 | 2. Alasan wajib saat check-in dilewati, ditandai untuk admin penjualan | S2d · Alasan lewati check-in | S2a, tombol "Lewati check-in" | Lanjut → S3; Kembali → S2a |
 | 3. Konfirmasi pesanan tersimpan, outlet ditandai selesai, saran outlet berikutnya | S4b · Pesanan tersimpan | S3, "Kirim pesanan" (sebelumnya langsung ke S4) | Lanjut → S1; Lihat pesanan → S4 |
 | 4. Tindak lanjut pesanan ditolak | S4c · Tindak lanjut pesanan ditolak | S4, kartu "Ditolak" | Pesan produk pengganti → S3c; Kabari outlet → WhatsApp |
+| 5. "Ulangi pesanan terakhir" tersambung (fitur inti, target ≤15 detik) — 5 Nov 2026 | S3e · Form pesanan kosong (semua jumlah 0, total Rp0) | S2, "Buat pesanan" (sebelumnya langsung ke S3 yang sudah terisi) | "Ulangi pesanan terakhir" → S3 (terisi 21 botol, Rp915.000); tombol Kirim di S3e sengaja tanpa interaksi |
+
+Tombol kembali (←) di S2c dan S2d sudah diarahkan ke S2 dan S2a (5 Nov 2026).
 
 Masih terbuka:
 
-5. **"Ulangi pesanan terakhir" tidak tersambung**, padahal ini fitur inti (target ≤15 detik). S3 sudah terisi sejak awal, dan S3b (tanpa sinyal) tidak punya tombol ini. Usul: S3 mulai kosong → tombol Ulangi → S3 terisi.
-6. Tombol kembali (←) di S2c dan S2d masih mengikuti layar asal (S1a). Sebaiknya diarahkan ke S2 dan S2a.
+6. S3b (tanpa sinyal) belum punya tombol "Ulangi pesanan terakhir".
 7. Outlet ke-2 di S1 masih langsung membuka S3b tanpa check-in.
 
 ## Hotspot prototype yang belum tersambung

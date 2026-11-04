@@ -1,8 +1,8 @@
 # User flow SIGAP (ARB-02)
 
-Disusun dari [proposal v03](Proposal_AntechAsync_v03_SIGAP_2026-11-04.docx) (Tabel C.2, C.3) dan Figma "SIGAP · Hi-fi v2". Kode layar (S1, S2a, …) mengikuti nama frame di Figma. Langkah bertanda **(usulan)** sudah ditambahkan ke Figma sebagai layar S2c, S2d, S4b, S4c (4 Nov 2026), tetapi belum ada di purwarupa; lihat [review-figma-hifi-v2.md](review-figma-hifi-v2.md).
+Disusun dari [proposal v03](Proposal_AntechAsync_v03_SIGAP_2026-11-04.docx) (Tabel C.2, C.3) dan Figma "SIGAP · Hi-fi v2". Kode layar (S1, S2a, …) mengikuti nama frame di Figma. Langkah bertanda **(usulan)** sudah ditambahkan ke Figma sebagai layar S2c, S2d, S4b, S4c (4 Nov 2026) dan S3e (5 Nov 2026), tetapi belum ada di purwarupa; lihat [review-figma-hifi-v2.md](review-figma-hifi-v2.md).
 
-Versi visual (5 diagram, dibuat dari kode di bawah lewat "Convert Mermaid code to diagram"): [FigJam — SIGAP User Flow (ARB-02)](https://www.figma.com/board/Dtii8Pg38TnDXi29melNsM/SIGAP-%E2%80%94-User-Flow--ARB-02-). Bila alur berubah, ubah kode di sini lalu konversi ulang di FigJam.
+Versi visual (5 diagram, dibuat dari kode di bawah lewat "Convert Mermaid code to diagram"): [FigJam — SIGAP User Flow (ARB-02)](https://www.figma.com/board/Dtii8Pg38TnDXi29melNsM/SIGAP-%E2%80%94-User-Flow--ARB-02-). Diagram Sales ada di paling kanan board (dikonversi ulang 5 Nov 2026 dengan S3e). Bila alur berubah, ubah kode di sini lalu konversi ulang di FigJam.
 
 ## 1. Sales (PWA di HP)
 
@@ -18,7 +18,8 @@ flowchart TD
     D2 --> E
     E -->|buat pesanan| F{Ada sinyal?}
     E -->|tidak order| H{{"S2c Hasil kunjungan<br/>tidak order + alasan (usulan)"}}
-    F -->|ya| G[S3 Form pesanan<br/>Ulangi pesanan terakhir, +/-]
+    F -->|ya| G0{{"S3e Form pesanan kosong<br/>(usulan)"}}
+    G0 -->|Ulangi pesanan terakhir| G[S3 Form pesanan terisi<br/>ubah jumlah +/-]
     F -->|tidak| G2[S3b Form tanpa sinyal<br/>simpan di HP]
     G --> K[Kirim pesanan]
     G2 --> K2[Simpan di HP<br/>menunggu sinyal] -->|sinyal kembali, kirim otomatis| K
