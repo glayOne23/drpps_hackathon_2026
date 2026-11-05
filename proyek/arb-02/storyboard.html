@@ -31,6 +31,7 @@ header{display:flex;flex-direction:column;gap:10px}
 .brief{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
 .brief>div{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px 18px;display:flex;flex-direction:column;gap:6px;min-width:0}
 .brief b{color:var(--accent-deep)}
+.brief svg{display:block;width:100%;height:auto;border:1.5px solid var(--sketch);border-radius:6px;background:var(--paper);margin-bottom:6px}
 .elements{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
 .elements div{border-top:3px solid var(--accent);padding-top:8px;font-size:14px;min-width:0}
 .elements span{display:block;font-family:var(--font-display);font-weight:700;font-size:15px}
@@ -135,14 +136,52 @@ footer{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padd
   <section class="brief" aria-label="Problem dan goal statement">
     <div>
       <span class="eyebrow">Problem statement</span>
+      <svg viewBox="0 0 300 120" role="img" aria-label="Budi bingung di antara buku catatan, chat, sinyal hilang, dan stok yang tidak jelas">
+        <line class="s-ground" x1="8" y1="112" x2="292" y2="112"/>
+        <use href="#person" x="120" y="22" width="45" height="90"/>
+        <use href="#sad" x="131" y="26" width="23" height="23"/>
+        <use href="#book" x="18" y="62" width="56" height="40"/>
+        <use href="#bubble" x="14" y="8" width="84" height="44"/>
+        <text class="s-small" x="26" y="26">Pesanan ditulis</text><text class="s-small" x="26" y="37">di chat & buku</text>
+        <use href="#nosignal" x="196" y="10" width="36" height="27"/>
+        <use href="#boxes" x="200" y="58" width="72" height="54"/>
+        <text class="s-small" x="196" y="50">Stok sebenarnya: <tspan fill="var(--bad)" font-weight="700">?</tspan></text>
+      </svg>
       <p><b>Mas Budi</b> adalah sales lapangan CV Arba'in yang mengunjungi banyak apotek dan minimarket per hari dengan sinyal yang sering hilang. Ia <b>membutuhkan</b> cara mencatat kunjungan dan pesanan dalam hitungan detik sambil mengetahui stok yang benar, <b>karena</b> pencatatan di buku dan chat memakan waktu, tidak sinkron dengan gudang, dan membuatnya menjanjikan barang yang ternyata kosong.</p>
     </div>
     <div>
       <span class="eyebrow">Goal statement</span>
+      <svg viewBox="0 0 300 134" role="img" aria-label="Satu input pesanan di HP langsung memperbarui stok, riwayat outlet, dan target">
+        <rect class="s-fill" x="20" y="14" width="56" height="96" rx="8"/>
+        <rect class="s-screen" x="26" y="24" width="44" height="74" rx="2"/>
+        <rect class="s-accent" x="26" y="24" width="44" height="12"/><text class="s-white" x="31" y="33" font-size="8">SIGAP</text>
+        <rect class="s-row" x="30" y="42" width="36" height="7" rx="1"/><rect class="s-row" x="30" y="53" width="36" height="7" rx="1"/>
+        <rect class="s-accent" x="30" y="80" width="36" height="12" rx="3"/><text class="s-white" x="36" y="89" font-size="7.5">Kirim</text>
+        <path class="s-line" d="M84 62 h30"/>
+        <path class="s-line" d="M114 62 L146 24 M114 62 H146 M114 62 L146 100"/>
+        <path class="s-line" d="M140 20 l6 4 l-6 4 M140 58 l6 4 l-6 4 M140 96 l6 4 l-6 4"/>
+        <use href="#boxes" x="152" y="4" width="46" height="36"/><text class="s-small" x="204" y="26">Stok tersedia</text>
+        <use href="#shelf" x="156" y="44" width="38" height="36"/><text class="s-small" x="204" y="66">Riwayat outlet</text>
+        <use href="#chart" x="152" y="84" width="46" height="31"/><text class="s-small" x="204" y="104">Capaian target</text>
+        <text class="s-small" x="20" y="128" fill="var(--accent-deep)" font-weight="700">1 input · ≤ 15 detik · 0 input ulang</text>
+      </svg>
       <p>SIGAP <b>akan memungkinkan</b> sales mencatat pesanan sekali dari HP, termasuk tanpa sinyal, <b>yang akan memengaruhi</b> sales, admin, gudang, dan direktur, <b>dengan</b> satu sumber data pelanggan, aktivitas sales, dan stok. <b>Efektivitas diukur dengan</b> input pesanan ulang ≤ 15 detik, nol input berulang, selisih stok saat opname turun ≥ 50%, dan skor SUS ≥ 70.</p>
     </div>
     <div>
       <span class="eyebrow">Skenario</span>
+      <svg viewBox="0 0 300 120" role="img" aria-label="Rute lima outlet hari Senin, Apotek Mojosongo bersinyal lemah">
+        <rect class="s-fill" x="10" y="10" width="54" height="50" rx="4"/>
+        <rect class="s-accent" x="10" y="10" width="54" height="14" rx="4"/><text class="s-white" x="22" y="21">Senin</text>
+        <text class="s-text" x="22" y="48" font-size="16" font-weight="700">2 Nov</text>
+        <path d="M84 96 C110 40 140 100 166 60 S220 30 236 70 S270 96 286 40" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-dasharray="5 5"/>
+        <circle cx="84" cy="96" r="9" class="s-deep"/><text class="s-white" x="81" y="99">1</text>
+        <circle cx="132" cy="74" r="12" fill="var(--warn)"/><text class="s-white" x="129" y="78">2</text>
+        <circle cx="180" cy="52" r="9" class="s-deep"/><text class="s-white" x="177" y="55">3</text>
+        <circle cx="236" cy="70" r="9" class="s-deep"/><text class="s-white" x="233" y="73">4</text>
+        <circle cx="284" cy="40" r="9" class="s-deep"/><text class="s-white" x="281" y="43">5</text>
+        <use href="#nosignal" x="114" y="34" width="30" height="22"/>
+        <text class="s-small" x="72" y="114">Outlet 2 · Apotek Mojosongo · sinyal lemah</text>
+      </svg>
       <p>Senin pagi di Surakarta. Budi punya lima outlet untuk dikunjungi. Salah satunya, Apotek Mojosongo Farma, ingin memesan Sari Kurma, padahal stok di gudang tinggal sedikit dan sinyal di tokonya lemah.</p>
     </div>
   </section>
