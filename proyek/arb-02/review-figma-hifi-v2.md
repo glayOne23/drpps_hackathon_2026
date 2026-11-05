@@ -39,7 +39,7 @@ Tombol kembali (←) di S2c dan S2d sudah diarahkan ke S2 dan S2a (5 Nov 2026).
 
 Masih terbuka:
 
-6. S3b (tanpa sinyal) belum punya tombol "Ulangi pesanan terakhir". Menyalin tombol dari S3 lewat browser gagal (paste dan seret layer tidak berjalan), jadi perlu dikerjakan langsung di Figma atau lewat Figma MCP.
+6. ~~S3b belum punya tombol "Ulangi pesanan terakhir".~~ **Sudah (5 Nov 2026):** instance komponen Button (gaya Secondary, hijau muda) "↻ Ulangi pesanan terakhir (20 Okt)" disisipkan lewat panel Assets di atas kartu produk S3b. Isi form S3b dianggap hasil Ulangi, jadi tombol ini tanpa interaksi. Warnanya sengaja beda dari tombol kuning di S3 agar tidak menyatu dengan banner "Tidak ada sinyal".
 7. Outlet ke-2 di S1 masih langsung membuka S3b tanpa check-in (jalan pintas demo mode tanpa sinyal).
 
 ## Hotspot prototype
@@ -53,8 +53,8 @@ Sudah disambungkan (5 Nov 2026):
 
 Masih terbuka:
 
-- S4 "Kirim sekarang" belum tersambung; butuh layar/state "antrean terkirim".
-- Outlet ke-3 sampai ke-5 di S1 membuka S2a milik Apotek Sehat Jebres; butuh varian S2a per outlet.
+- ~~S4 "Kirim sekarang" belum tersambung.~~ **Sudah (5 Nov 2026):** → layar baru **S4d · Antrean terkirim (usulan)**: "Antrean kosong · 1 pesanan terkirim 09.26, tepat sekali", Toko Obat Waras berubah dari "Menunggu sinyal" ke "Diterima".
+- Outlet ke-3 dan ke-4 di S1 dulu membuka S2a milik Apotek Sehat Jebres. **5 Nov 2026:** tautannya dilepas agar demo tidak menampilkan outlet yang salah; outlet ke-5 (sudah check-in, pesanan terkirim) kini membuka S4 Pesanan saya. Varian S2a/S2 per outlet tetap belum dibuat.
 
 ## Data yang tidak konsisten (sudah diperbaiki 5 Nov 2026)
 
@@ -69,7 +69,7 @@ Masih terbuka:
 ## UI
 
 - Di S1, tombol mengambang "Outlet baru" menutupi kartu outlet ke-5. **Sudah diperbaiki 5 Nov 2026:** tombol mengambang dihapus; chip "5 outlet" di kepala kartu Kunjungan hari ini diganti chip hijau "+ Outlet baru" yang membuka S1a (jumlah outlet sudah tertulis di sapaan "5 kunjungan hari ini"). Kelima outlet kini terlihat utuh. Saat dibangun, beri area sentuh ≥44 px.
-- Halaman sales tidak punya menu profil/keluar.
+- ~~Halaman sales tidak punya menu profil/keluar.~~ **Sudah (5 Nov 2026):** layar baru **S1b · Profil & keluar (usulan)** (dari duplikat S2d) berisi akun, data tersimpan di HP, jumlah antrean, versi aplikasi, sinkron terakhir, dan tombol "Keluar dari SIGAP" (Danger) → S0. Peringatan: keluar menghapus data di HP, jadi antrean harus terkirim dulu. Dibuka dengan mengetuk sapaan "Halo, Budi" di S1; ← dan "Kembali ke kunjungan" → S1. Sapaan belum punya penanda visual bahwa ia bisa diketuk (mis. avatar).
 
 ## Celah alur (flow hole) per peran
 

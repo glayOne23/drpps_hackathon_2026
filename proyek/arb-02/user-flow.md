@@ -1,6 +1,6 @@
 # User flow SIGAP (ARB-02)
 
-Disusun dari [proposal v03](Proposal_AntechAsync_v03_SIGAP_2026-11-04.docx) (Tabel C.2, C.3) dan Figma "SIGAP · Hi-fi v2". Kode layar (S1, S2a, …) mengikuti nama frame di Figma. Langkah bertanda **(usulan)** sudah ditambahkan ke Figma sebagai layar S2c, S2d, S4b, S4c (4 Nov 2026), S3e dan S7d (5 Nov 2026), tetapi belum ada di purwarupa; lihat [review-figma-hifi-v2.md](review-figma-hifi-v2.md).
+Disusun dari [proposal v03](Proposal_AntechAsync_v03_SIGAP_2026-11-04.docx) (Tabel C.2, C.3) dan Figma "SIGAP · Hi-fi v2". Kode layar (S1, S2a, …) mengikuti nama frame di Figma. Langkah bertanda **(usulan)** sudah ditambahkan ke Figma sebagai layar S2c, S2d, S4b, S4c (4 Nov 2026), S3e, S7d, S4d, dan S1b (5 Nov 2026), tetapi belum ada di purwarupa; lihat [review-figma-hifi-v2.md](review-figma-hifi-v2.md).
 
 Versi visual (5 diagram, dibuat dari kode di bawah lewat "Convert Mermaid code to diagram"): [FigJam — SIGAP User Flow (ARB-02)](https://www.figma.com/board/Dtii8Pg38TnDXi29melNsM/SIGAP-%E2%80%94-User-Flow--ARB-02-). Diagram Sales ada di paling kanan board (dikonversi ulang 5 Nov 2026 dengan S3e); diagram admin gudang (kedua dari kiri) dikonversi ulang 5 Nov 2026 dengan S7d. Bila alur berubah, ubah kode di sini lalu konversi ulang di FigJam.
 
@@ -12,6 +12,8 @@ flowchart TD
     B --> C[S1 Kunjungan hari ini<br/>urut: jatuh tempo, waktunya order, lama tidak dikunjungi]
     C -->|pilih outlet| D[S2a Check-in GPS dan jam]
     C -->|outlet belum terdaftar| N[S1a Outlet baru<br/>status menunggu validasi]
+    C -->|ketuk sapaan| P{{"S1b Profil & keluar<br/>(usulan)"}}
+    P -->|keluar, antrean kosong| B
     N --> F
     D -->|check-in| E[S2 Halaman outlet<br/>3 pesanan terakhir, tagihan]
     D -->|lewati| D2{{"S2d Alasan lewati check-in<br/>(usulan)"}}
@@ -31,6 +33,7 @@ flowchart TD
     M1 -->|diterima| M2[S4a Detail pesanan]
     M1 -->|diterima sebagian| M2
     M1 -->|ditolak: stok kurang| M3{{"S4c Tindak lanjut ditolak<br/>produk pengganti atau kabari outlet (usulan)"}}
+    M -->|Kirim sekarang| M4{{"S4d Antrean terkirim<br/>(usulan)"}}
 ```
 
 ## 2. Admin penjualan
