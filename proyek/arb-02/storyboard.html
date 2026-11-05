@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Storyboard SIGAP</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;700&family=Roboto:wght@400;500;700&display=swap">
+<style>
+/* Layout: lembar storyboard — kepala dokumen, lalu dua papan panel bergrid 3 kolom (1 kolom di HP). */
+:root{
+  --bg:#f3f5f1; --paper:#ffffff; --ink:#1c2a22; --muted:#5b6a60; --line:#d6ded7;
+  --accent:#15803d; --accent-deep:#14532d; --accent-soft:#e3f3e8;
+  --warn:#b45309; --warn-soft:#fdf0dc; --bad:#b91c1c; --bad-soft:#fbe4e4; --info:#075985; --info-soft:#e2f1fa;
+  --skin:#e9b98f; --sketch:#2b3a31; --screen:#f2f5f8; --screen-row:#dfe6ea;
+  --font-display:"Bitter",Georgia,"Times New Roman",serif;
+  --font-body:"Roboto",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#121815; --paper:#1a221d; --ink:#e6eee8; --muted:#a3b2a8; --line:#2e3a33;
+  --accent:#4ade80; --accent-deep:#86efac; --accent-soft:#1d3326;
+  --warn:#f5b75a; --warn-soft:#3a2c17; --bad:#f87171; --bad-soft:#3b1d1d; --info:#7cc4ee; --info-soft:#15303f;
+  --skin:#d7a57c; --sketch:#cfe0d4; --screen:#24302a; --screen-row:#34443b; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121815; --paper:#1a221d; --ink:#e6eee8; --muted:#a3b2a8; --line:#2e3a33;
+  --accent:#4ade80; --accent-deep:#86efac; --accent-soft:#1d3326;
+  --warn:#f5b75a; --warn-soft:#3a2c17; --bad:#f87171; --bad-soft:#3b1d1d; --info:#7cc4ee; --info-soft:#15303f;
+  --skin:#d7a57c; --sketch:#cfe0d4; --screen:#24302a; --screen-row:#34443b; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:32px 56px}
+.wrap{max-width:1120px;margin:0 auto;display:flex;flex-direction:column;gap:40px}
+h1,h2,h3{font-family:var(--font-display);text-wrap:balance;margin:0}
+h1{font-size:clamp(28px,4vw,40px);line-height:1.15;color:var(--accent-deep)}
+h2{font-size:24px;line-height:1.2}
+h3{font-size:16px;line-height:1.3}
+p{margin:0}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
+header{display:flex;flex-direction:column;gap:10px}
+.lede{max-width:68ch;color:var(--muted)}
+.brief{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.brief>div{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px 18px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.brief b{color:var(--accent-deep)}
+.elements{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.elements div{border-top:3px solid var(--accent);padding-top:8px;font-size:14px;min-width:0}
+.elements span{display:block;font-family:var(--font-display);font-weight:700;font-size:15px}
+.board{display:flex;flex-direction:column;gap:16px}
+.board-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px}
+.tag{font-size:12px;font-weight:500;padding:3px 10px;border-radius:999px;background:var(--accent-soft);color:var(--accent-deep)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media (max-width:860px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.grid{grid-template-columns:1fr}}
+.panel{background:var(--paper);border:1.5px solid var(--sketch);border-radius:6px;display:flex;flex-direction:column;min-width:0}
+.panel svg{display:block;width:100%;height:auto;border-bottom:1.5px solid var(--sketch);background:var(--paper);border-radius:5px 5px 0 0}
+.cap{padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px}
+.cap .no{font-family:var(--font-display);font-weight:700;color:var(--accent);font-size:13px}
+.cap p{font-size:14px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+.chip{font-size:11.5px;font-weight:500;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.mood-bad{background:var(--bad-soft);color:var(--bad)} .mood-warn{background:var(--warn-soft);color:var(--warn)}
+.mood-good{background:var(--accent-soft);color:var(--accent-deep)} .screen-code{background:var(--info-soft);color:var(--info);font-variant-numeric:tabular-nums}
+.note{font-size:13px;color:var(--muted);max-width:80ch}
+footer{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
+/* SVG paints */
+.s-line{stroke:var(--sketch);stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.s-fill{fill:var(--paper);stroke:var(--sketch);stroke-width:2.2;stroke-linejoin:round}
+.s-skin{fill:var(--skin);stroke:var(--sketch);stroke-width:2.2}
+.s-shirt{fill:var(--accent);stroke:var(--sketch);stroke-width:2.2;stroke-linejoin:round}
+.s-shirt2{fill:var(--info);stroke:var(--sketch);stroke-width:2.2;stroke-linejoin:round}
+.s-ground{stroke:var(--line);stroke-width:2}
+.s-soft{fill:var(--accent-soft)} .s-warnsoft{fill:var(--warn-soft)} .s-badsoft{fill:var(--bad-soft)}
+.s-accent{fill:var(--accent)} .s-deep{fill:var(--accent-deep)} .s-bad{fill:var(--bad)} .s-warn{fill:var(--warn)}
+.s-screen{fill:var(--screen)} .s-row{fill:var(--screen-row)}
+.s-text{fill:var(--ink);font-family:var(--font-body);font-size:11px}
+.s-small{fill:var(--muted);font-family:var(--font-body);font-size:9px}
+.s-white{fill:#ffffff;font-family:var(--font-body);font-size:9px;font-weight:700}
+.s-tap{fill:none;stroke:var(--bad);stroke-width:2.5}
+.s-tapfill{fill:var(--bad);opacity:.18}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="person" viewBox="0 0 60 120">
+      <circle class="s-skin" cx="30" cy="20" r="14"/>
+      <path class="s-shirt" d="M12 46 q18-12 36 0 l4 44 h-44z"/>
+      <path class="s-line" d="M18 90 l-2 26 M42 90 l2 26"/>
+    </symbol>
+    <symbol id="person2" viewBox="0 0 60 120">
+      <circle class="s-skin" cx="30" cy="20" r="14"/>
+      <path class="s-shirt2" d="M12 46 q18-12 36 0 l4 44 h-44z"/>
+      <path class="s-line" d="M18 90 l-2 26 M42 90 l2 26"/>
+    </symbol>
+    <symbol id="sad" viewBox="0 0 28 28"><path class="s-line" d="M8 19 q6-5 12 0"/><circle class="s-deep" cx="9" cy="11" r="1.8"/><circle class="s-deep" cx="19" cy="11" r="1.8"/></symbol>
+    <symbol id="flat" viewBox="0 0 28 28"><path class="s-line" d="M9 18 h10"/><circle class="s-deep" cx="9" cy="11" r="1.8"/><circle class="s-deep" cx="19" cy="11" r="1.8"/></symbol>
+    <symbol id="happy" viewBox="0 0 28 28"><path class="s-line" d="M8 16 q6 6 12 0"/><circle class="s-deep" cx="9" cy="11" r="1.8"/><circle class="s-deep" cx="19" cy="11" r="1.8"/></symbol>
+    <symbol id="shelf" viewBox="0 0 120 110">
+      <rect class="s-fill" x="4" y="4" width="112" height="102" rx="3"/>
+      <path class="s-line" d="M4 38 h112 M4 72 h112"/>
+      <rect class="s-soft" x="12" y="14" width="14" height="22" rx="2"/><rect class="s-warnsoft" x="30" y="18" width="14" height="18" rx="2"/><rect class="s-soft" x="48" y="14" width="14" height="22" rx="2"/>
+      <rect class="s-warnsoft" x="12" y="50" width="14" height="20" rx="2"/><rect class="s-soft" x="30" y="48" width="14" height="22" rx="2"/>
+      <rect class="s-soft" x="12" y="82" width="14" height="22" rx="2"/><rect class="s-warnsoft" x="30" y="86" width="14" height="18" rx="2"/><rect class="s-soft" x="48" y="82" width="14" height="22" rx="2"/><rect class="s-soft" x="66" y="82" width="14" height="22" rx="2"/>
+    </symbol>
+    <symbol id="boxes" viewBox="0 0 120 90">
+      <rect class="s-warnsoft" x="6" y="44" width="46" height="42" stroke="var(--sketch)" stroke-width="2.2"/>
+      <rect class="s-warnsoft" x="56" y="44" width="46" height="42" stroke="var(--sketch)" stroke-width="2.2"/>
+      <rect class="s-warnsoft" x="30" y="4" width="46" height="40" stroke="var(--sketch)" stroke-width="2.2"/>
+      <path class="s-line" d="M29 44 v14 M79 44 v14 M53 4 v14"/>
+    </symbol>
+    <symbol id="book" viewBox="0 0 60 44">
+      <path class="s-fill" d="M4 6 q13-6 26 2 v32 q-13-7-26-1z"/><path class="s-fill" d="M56 6 q-13-6-26 2 v32 q13-7 26-1z"/>
+      <path class="s-line" d="M9 14 h15 M9 20 h13 M9 26 h15 M36 14 h15 M36 20 h12"/>
+    </symbol>
+    <symbol id="bubble" viewBox="0 0 80 50" preserveAspectRatio="none">
+      <path class="s-fill" d="M6 4 h68 a4 4 0 0 1 4 4 v26 a4 4 0 0 1-4 4 h-48 l-12 10 v-10 h-8 a4 4 0 0 1-4-4 v-26 a4 4 0 0 1 4-4z"/>
+    </symbol>
+    <symbol id="phone" viewBox="0 0 40 70">
+      <rect class="s-fill" x="3" y="3" width="34" height="64" rx="6"/>
+      <rect class="s-screen" x="7" y="10" width="26" height="48" rx="2"/>
+      <rect class="s-accent" x="7" y="10" width="26" height="9"/>
+      <rect class="s-row" x="10" y="23" width="20" height="5" rx="1"/><rect class="s-row" x="10" y="31" width="20" height="5" rx="1"/><rect class="s-row" x="10" y="39" width="20" height="5" rx="1"/>
+    </symbol>
+    <symbol id="nosignal" viewBox="0 0 40 30">
+      <path class="s-line" d="M6 24 v-4 M14 24 v-8 M22 24 v-12 M30 24 v-16"/><path stroke="var(--bad)" stroke-width="3" stroke-linecap="round" d="M4 4 l32 22"/>
+    </symbol>
+    <symbol id="cloudok" viewBox="0 0 60 40">
+      <path class="s-fill" d="M14 34 a10 10 0 0 1 0-20 a14 14 0 0 1 27-4 a10 10 0 0 1 5 24z"/>
+      <path stroke="var(--accent)" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round" d="M20 22 l6 6 l12-12"/>
+    </symbol>
+    <symbol id="chart" viewBox="0 0 90 60">
+      <rect class="s-fill" x="2" y="2" width="86" height="56" rx="4"/>
+      <rect class="s-accent" x="14" y="30" width="10" height="20"/><rect class="s-accent" x="30" y="20" width="10" height="30"/><rect class="s-accent" x="46" y="26" width="10" height="24"/><rect class="s-accent" x="62" y="12" width="10" height="38"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">ARB-02 · CV Arba'in Jaya Mandiri · Tim Antech Async</span>
+    <h1>Storyboard SIGAP</h1>
+    <p class="lede">Dua storyboard untuk SIGAP, disusun dari proposal v03 (4 Nov 2026), user flow, dan prototipe hi-fi v2. Big-picture menunjukkan mengapa SIGAP membantu sales. Close-up menunjukkan cara layarnya bekerja.</p>
+  </header>
+
+  <section class="brief" aria-label="Problem dan goal statement">
+    <div>
+      <span class="eyebrow">Problem statement</span>
+      <p><b>Mas Budi</b> adalah sales lapangan CV Arba'in yang mengunjungi banyak apotek dan minimarket per hari dengan sinyal yang sering hilang. Ia <b>membutuhkan</b> cara mencatat kunjungan dan pesanan dalam hitungan detik sambil mengetahui stok yang benar, <b>karena</b> pencatatan di buku dan chat memakan waktu, tidak sinkron dengan gudang, dan membuatnya menjanjikan barang yang ternyata kosong.</p>
+    </div>
+    <div>
+      <span class="eyebrow">Goal statement</span>
+      <p>SIGAP <b>akan memungkinkan</b> sales mencatat pesanan sekali dari HP, termasuk tanpa sinyal, <b>yang akan memengaruhi</b> sales, admin, gudang, dan direktur, <b>dengan</b> satu sumber data pelanggan, aktivitas sales, dan stok. <b>Efektivitas diukur dengan</b> input pesanan ulang ≤ 15 detik, nol input berulang, selisih stok saat opname turun ≥ 50%, dan skor SUS ≥ 70.</p>
+    </div>
+    <div>
+      <span class="eyebrow">Skenario</span>
+      <p>Senin pagi di Surakarta. Budi punya lima outlet untuk dikunjungi. Salah satunya, Apotek Mojosongo Farma, ingin memesan Sari Kurma, padahal stok di gudang tinggal sedikit dan sinyal di tokonya lemah.</p>
+    </div>
+  </section>
+
+  <section class="elements" aria-label="Empat elemen storyboard">
+    <div><span>Karakter</span>Mas Budi, sales lapangan CV Arba'in.</div>
+    <div><span>Scene</span>Kantor dan gudang di Mojosongo, lalu apotek dan minimarket di Solo dengan sinyal tidak stabil.</div>
+    <div><span>Plot</span>SIGAP di HP: kunjungan hari ini, ulangi pesanan terakhir, tetap jalan tanpa sinyal.</div>
+    <div><span>Narasi</span>Data tercecer dan janji barang kosong, diselesaikan dengan satu input yang langsung memperbarui stok, riwayat outlet, dan target.</div>
+  </section>
+
+  <!-- BIG PICTURE -->
+  <section class="board" aria-labelledby="bp">
+    <div class="board-head"><h2 id="bp">1. Big-picture storyboard</h2><span class="tag">Fokus: pengguna, konteks, perasaan</span></div>
+    <div class="grid">
+
+      <article class="panel">
+        <svg viewBox="0 0 320 200" role="img" aria-label="Budi di meja menyalin catatan dari buku ke chat WhatsApp">
+          <line class="s-ground" x1="10" y1="186" x2="310" y2="186"/>
+          <rect class="s-fill" x="150" y="120" width="150" height="10"/><path class="s-line" d="M162 130 v56 M288 130 v56"/>
+          <use href="#book" x="160" y="82" width="60" height="44"/>
+          <use href="#phone" x="238" y="66" width="34" height="60"/>
+          <use href="#bubble" x="210" y="14" width="96" height="56"/>
+          <text class="s-small" x="224" y="34">Admin: Sari Kurma</text><text class="s-small" x="224" y="46">sisa berapa ya?</text>
+          <use href="#person" x="70" y="66" width="60" height="120"/>
+          <use href="#sad" x="86" y="72" width="28" height="28"/>
+          <text class="s-text" x="16" y="30">07.40 · Kantor</text>
+        </svg>
+        <div class="cap"><span class="no">Panel 1</span><h3>Pagi yang penuh salinan</h3><p>Budi menyalin pesanan kemarin dari buku ke chat admin. Admin pun tidak yakin berapa sisa Sari Kurma di gudang.</p><div class="chips"><span class="chip mood-bad">Lelah, bingung</span><span class="chip mood-warn">Data tercecer</span></div></div>
+      </article>
+
+      <article class="panel">
+        <svg viewBox="0 0 320 200" role="img" aria-label="Budi di apotek menyanggupi pesanan tanpa tahu stok, sinyal hilang">
+          <line class="s-ground" x1="10" y1="186" x2="310" y2="186"/>
+          <use href="#shelf" x="190" y="60" width="120" height="126"/>
+          <use href="#person" x="60" y="66" width="60" height="120"/>
+          <use href="#flat" x="76" y="72" width="28" height="28"/>
+          <use href="#person2" x="128" y="66" width="60" height="120"/>
+          <use href="#bubble" x="112" y="10" width="110" height="58"/>
+          <text class="s-small" x="128" y="30">Sari Kurma 10 botol,</text><text class="s-small" x="128" y="42">besok bisa, Mas?</text>
+          <use href="#nosignal" x="20" y="16" width="40" height="30"/>
+          <text class="s-text" x="16" y="62">Apotek Mojosongo</text>
+        </svg>
+        <div class="cap"><span class="no">Panel 2</span><h3>Menyanggupi tanpa tahu stok</h3><p>Bu Rina memesan 10 botol. Sinyal hilang, Budi tidak bisa bertanya ke gudang, jadi ia menyanggupi dan mencatat di buku.</p><div class="chips"><span class="chip mood-warn">Ragu</span><span class="chip mood-warn">Sinyal lemah</span></div></div>
+      </article>
+
+      <article class="panel">
+        <svg viewBox="0 0 320 200" role="img" aria-label="Gudang kosong, outlet kecewa">
+          <line class="s-ground" x1="10" y1="186" x2="310" y2="186"/>
+          <use href="#boxes" x="190" y="96" width="120" height="90"/>
+          <text class="s-text" x="214" y="90">Rak Sari Kurma: 0</text>
+          <use href="#person" x="80" y="66" width="60" height="120"/>
+          <use href="#sad" x="96" y="72" width="28" height="28"/>
+          <use href="#bubble" x="20" y="10" width="140" height="60"/>
+          <text class="s-small" x="36" y="30">"Kok barangnya kosong?</text><text class="s-small" x="36" y="42">Sudah dijanjikan kemarin."</text>
+          <text class="s-text" x="16" y="176">Esok hari</text>
+        </svg>
+        <div class="cap"><span class="no">Panel 3</span><h3>Janji yang tidak bisa ditepati</h3><p>Ternyata stok sudah dipesan outlet lain. Pesanan Bu Rina tidak terkirim, dan Budi harus meminta maaf.</p><div class="chips"><span class="chip mood-bad">Malu, kecewa</span><span class="chip mood-bad">Stok tidak sinkron</span></div></div>
+      </article>
+
+      <article class="panel">
+        <svg viewBox="0 0 320 200" role="img" aria-label="Budi membuka SIGAP dan melihat daftar kunjungan berurutan">
+          <line class="s-ground" x1="10" y1="186" x2="310" y2="186"/>
+          <use href="#person" x="56" y="66" width="60" height="120"/>
+          <use href="#flat" x="72" y="72" width="28" height="28"/>
+          <rect class="s-fill" x="150" y="22" width="110" height="160" rx="12"/>
+          <rect class="s-accent" x="158" y="34" width="94" height="18" rx="2"/><text class="s-white" x="164" y="46">SIGAP · Kunjungan</text>
+          <rect class="s-badsoft" x="158" y="60" width="94" height="24" rx="4"/><text class="s-small" x="164" y="75">1 Jatuh tempo besok</text>
+          <rect class="s-warnsoft" x="158" y="90" width="94" height="24" rx="4"/><text class="s-small" x="164" y="105">2 Waktunya order</text>
+          <rect class="s-warnsoft" x="158" y="120" width="94" height="24" rx="4"/><text class="s-small" x="164" y="135">3 Waktunya order</text>
+          <rect class="s-soft" x="158" y="150" width="94" height="24" rx="4"/><text class="s-small" x="164" y="165">4 Lama tak dikunjungi</text>
+          <path class="s-line" d="M112 120 q20-10 36-20"/>
+        </svg>
+        <div class="cap"><span class="no">Panel 4</span><h3>Hari dimulai dengan arah</h3><p>Sekarang Budi membuka SIGAP dari layar utama HP. Daftar kunjungan hari ini sudah berurutan beserta alasannya.</p><div class="chips"><span class="chip mood-good">Lega, terarah</span></div></div>
+      </article>
+
+      <article class="panel">
+        <svg viewBox="0 0 320 200" role="img" aria-label="Di toko tanpa sinyal, Budi tetap menyimpan pesanan di HP">
+          <line class="s-ground" x1="10" y1="186" x2="310" y2="186"/>
+          <use href="#shelf" x="206" y="70" width="104" height="116"/>
+          <use href="#person" x="60" y="66" width="60" height="120"/>
+          <use href="#happy" x="76" y="72" width="28" height="28"/>
+          <use href="#person2" x="128" y="66" width="60" height="120"/>
+          <use href="#phone" x="102" y="100" width="28" height="48"/>
+          <use href="#nosignal" x="20" y="16" width="40" height="30"/>
+          <use href="#bubble" x="112" y="8" width="150" height="58"/>
+          <text class="s-small" x="128" y="28">"Tersedia 3 botol, Bu.</text><text class="s-small" x="128" y="40">Saya catat sekarang."</text>
+        </svg>
+        <div class="cap"><span class="no">Panel 5</span><h3>Jujur soal stok, meski tanpa sinyal</h3><p>Budi menekan "Ulangi pesanan terakhir" dan melihat stok tersedia dari sinkron terakhir. Pesanan disimpan di HP lalu terkirim sendiri saat sinyal kembali.</p><div class="chips"><span class="chip mood-good">Yakin</span><span class="chip mood-good">± 15 detik</span></div></div>
+      </article>
+
+      <article class="panel">
+        <svg viewBox="0 0 320 200" role="img" aria-label="Akhir hari, data stok dan target terbarui otomatis, Budi puas">
+          <line class="s-ground" x1="10" y1="186" x2="310" y2="186"/>
+          <use href="#person" x="56" y="66" width="60" height="120"/>
+          <use href="#happy" x="72" y="72" width="28" height="28"/>
+          <use href="#cloudok" x="140" y="22" width="70" height="46"/>
+          <use href="#chart" x="210" y="80" width="96" height="64"/>
+          <use href="#boxes" x="140" y="110" width="76" height="58"/>
+          <text class="s-small" x="214" y="156">Target 62% · stok sinkron</text>
+          <text class="s-text" x="16" y="30">16.30 · Selesai</text>
+        </svg>
+        <div class="cap"><span class="no">Panel 6</span><h3>Pulang tanpa rekap</h3><p>Stok gudang, riwayat outlet, dan capaian target sudah terbarui dari pesanan tadi. Direktur melihat kinerja tanpa meminta laporan, dan Budi tidak perlu menyalin apa pun.</p><div class="chips"><span class="chip mood-good">Puas, dipercaya</span><span class="chip mood-good">Nol input ulang</span></div></div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- CLOSE UP -->
+  <section class="board" aria-labelledby="cu">
+    <div class="board-head"><h2 id="cu">2. Close-up storyboard</h2><span class="tag">Fokus: layar dan interaksi</span></div>
+    <p class="note">Kode layar mengikuti frame di Figma "SIGAP · Hi-fi v2" dan user-flow.md. Lingkaran merah menandai bagian yang disentuh.</p>
+    <div class="grid">
+
+      <article class="panel">
+        <svg viewBox="0 0 320 200" role="img" aria-label="Layar utama HP dengan ikon SIGAP lalu daftar kunjungan hari ini">
+          <rect class="s-fill" x="30" y="14" width="96" height="172" rx="12"/>
+          <rect class="s-screen" x="38" y="28" width="80" height="146" rx="2"/>
+          <rect class="s-row" x="46" y="40" width="18" height="18" rx="4"/><rect class="s-row" x="70" y="40" width="18" height="18" rx="4"/><rect class="s-row" x="94" y="40" width="18" height="18" rx="4"/>
+          <rect class="s-accent" x="46" y="66" width="18" height="18" rx="4"/><text class="s-small" x="42" y="96">SIGAP</text>
+          <circle class="s-tapfill" cx="55" cy="75" r="14"/><circle class="s-tap" cx="55" cy="75" r="14"/>
+          <path class="s-line" d="M136 100 h24 m-8 -8 l8 8 l-8 8"/>
+          <rect class="s-fill" x="176" y="14" width="116" height="172" rx="12"/>
+          <rect class="s-screen" x="184" y="28" width="100" height="146" rx="2"/>
+          <rect class="s-deep" x="184" y="28" width="100" height="22"/><text class="s-white" x="190" y="42">Kunjungan hari ini</text>
+          <rect class="s-paper" x="190" y="56" width="88" height="20" rx="3" fill="var(--paper)"/><rect class="s-accent" x="194" y="68" width="54" height="4" rx="2"/><text class="s-small" x="194" y="64">Target 62%</text>
+          <rect class="s-badsoft" x="190" y="82" width="88" height="20" rx="3"/><text class="s-small" x="194" y="95">1 Apotek Sehat</text>
+          <rect class="s-warnsoft" x="190" y="106" width="88" height="20" rx="3"/><text class="s-small" x="194" y="119">2 Apotek Mojosongo</text>
+          <rect class="s-warnsoft" x="190" y="130" width="88" height="20" rx="3"/><text class="s-small" x="194" y="143">3 Minimarket Barokah</text>
+        </svg>
+        <div class="cap"><span class="no">Panel 1</span><h3>Buka dari layar utama</h3><p>Sales mengetuk ikon SIGAP (PWA). Daftar kunjungan hari ini tampil berurutan dengan label alasan dan capaian target bulan ini.</p><div class="chips"><span class="chip screen-code">S0 → S1</span></div></div>
+      </article>
+
+      <article class="panel">
+        <svg viewBox="0 0 320 200" role="img" aria-label="Memilih outlet lalu check-in dengan GPS">
+          <rect class="s-fill" x="102" y="10" width="116" height="180" rx="12"/>
+          <rect class="s-screen" x="110" y="24" width="100" height="154" rx="2"/>
+          <rect class="s-deep" x="110" y="24" width="100" height="22"/><text class="s-white" x="116" y="38">Apotek Mojosongo</text>
+          <circle cx="160" cy="88" r="26" fill="var(--accent-soft)"/>
+          <path d="M160 104 s-14-12-14-22 a14 14 0 0 1 28 0 c0 10-14 22-14 22z" fill="var(--accent)"/><circle cx="160" cy="82" r="5" fill="#ffffff"/>
+          <text class="s-small" x="118" y="130">Lokasi −7,55 · 110,84</text><text class="s-small" x="118" y="142">Jam 08.20</text>
+          <rect class="s-accent" x="118" y="150" width="84" height="20" rx="5"/><text class="s-white" x="138" y="163">Check-in</text>
+          <circle class="s-tapfill" cx="160" cy="160" r="14"/><circle class="s-tap" cx="160" cy="160" r="14"/>
+          <text class="s-small" x="232" y="160">atau "Lewati"</text><text class="s-small" x="232" y="172">+ alasan</text>
+        </svg>
+        <div class="cap"><span class="no">Panel 2</span><h3>Check-in di lokasi</h3><p>Sales memilih outlet lalu menekan Check-in. Lokasi GPS dan jam tercatat. Bila tidak bisa check-in, sales melewati dengan alasan.</p><div class="chips"><span class="chip screen-code">S1 → S2a</span><span class="chip screen-code">S2d (usulan)</span></div></div>
+      </article>
+
+      <article class="panel">
+        <svg viewBox="0 0 320 200" role="img" aria-label="Halaman outlet dengan tiga pesanan terakhir dan tombol Buat pesanan">
+          <rect class="s-fill" x="102" y="10" width="116" height="180" rx="12"/>
+          <rect class="s-screen" x="110" y="24" width="100" height="154" rx="2"/>
+          <rect class="s-deep" x="110" y="24" width="100" height="22"/><text class="s-white" x="116" y="38">Halaman outlet</text>
+          <rect x="116" y="52" width="88" height="26" rx="3" fill="var(--paper)"/><text class="s-small" x="120" y="63">Tagihan jatuh tempo</text><text class="s-small" x="120" y="74" fill="var(--bad)">Rp1,42 jt · besok</text>
+          <rect x="116" y="84" width="88" height="44" rx="3" fill="var(--paper)"/><text class="s-small" x="120" y="95">3 pesanan terakhir</text>
+          <rect class="s-row" x="120" y="100" width="80" height="6" rx="2"/><rect class="s-row" x="120" y="110" width="80" height="6" rx="2"/><rect class="s-row" x="120" y="120" width="80" height="6" rx="2"/>
+          <rect class="s-accent" x="116" y="148" width="88" height="22" rx="5"/><text class="s-white" x="130" y="162">Buat pesanan</text>
+          <circle class="s-tapfill" cx="160" cy="159" r="14"/><circle class="s-tap" cx="160" cy="159" r="14"/>
+          <text class="s-small" x="230" y="100">Tidak order?</text><text class="s-small" x="230" y="112">catat hasil</text><text class="s-small" x="230" y="124">+ alasan</text>
+        </svg>
+        <div class="cap"><span class="no">Panel 3</span><h3>Lihat konteks outlet</h3><p>Sebelum memesan, sales melihat tagihan jatuh tempo dan tiga pesanan terakhir outlet. Lalu sales menekan "Buat pesanan", atau mencatat hasil kunjungan bila outlet tidak memesan.</p><div class="chips"><span class="chip screen-code">S2</span><span class="chip screen-code">S2c (usulan)</span></div></div>
+      </article>
+
+      <article class="panel">
+        <svg viewBox="0 0 320 200" role="img" aria-label="Form pesanan dengan tombol Ulangi pesanan terakhir dan stepper jumlah">
+          <rect class="s-fill" x="102" y="10" width="116" height="180" rx="12"/>
+          <rect class="s-screen" x="110" y="24" width="100" height="154" rx="2"/>
+          <rect class="s-deep" x="110" y="24" width="100" height="22"/><text class="s-white" x="116" y="38">Pesanan baru</text>
+          <rect class="s-soft" x="116" y="52" width="88" height="18" rx="4" stroke="var(--accent)" stroke-width="1.2"/><text class="s-small" x="122" y="64" fill="var(--accent-deep)">↻ Ulangi pesanan</text>
+          <circle class="s-tapfill" cx="160" cy="61" r="13"/><circle class="s-tap" cx="160" cy="61" r="13"/>
+          <text class="s-small" x="118" y="84">Madu Propolis · tersedia 32</text><text class="s-small" x="186" y="96">− 6 +</text>
+          <text class="s-small" x="118" y="108">Sari Kurma · tersedia 3</text><text class="s-small" x="186" y="120" fill="var(--bad)">− 3 +</text>
+          <text class="s-small" x="118" y="132">per sinkron 08.23</text>
+          <rect class="s-accent" x="116" y="148" width="88" height="22" rx="5"/><text class="s-white" x="128" y="162">Kirim pesanan</text>
+          <text class="s-small" x="228" y="70">Isi otomatis</text><text class="s-small" x="228" y="82">dari pesanan</text><text class="s-small" x="228" y="94">terakhir</text>
+        </svg>
+        <div class="cap"><span class="no">Panel 4</span><h3>Ulangi pesanan terakhir</h3><p>Satu tombol mengisi produk dan jumlah dari pesanan sebelumnya. Sales menyesuaikan jumlah dengan +/− sambil melihat stok tersedia dan jam sinkron terakhir.</p><div class="chips"><span class="chip screen-code">S3e (usulan) → S3</span><span class="chip mood-good">Target ≤ 15 detik</span></div></div>
+      </article>
+
+      <article class="panel">
+        <svg viewBox="0 0 320 200" role="img" aria-label="Tanpa sinyal, pesanan disimpan di HP dan terkirim otomatis saat sinyal kembali">
+          <rect class="s-fill" x="40" y="10" width="110" height="180" rx="12"/>
+          <rect class="s-screen" x="48" y="24" width="94" height="154" rx="2"/>
+          <rect x="48" y="24" width="94" height="22" fill="var(--ink)"/><text class="s-white" x="54" y="38">Tanpa sinyal</text>
+          <rect class="s-warnsoft" x="54" y="52" width="82" height="30" rx="4"/><text class="s-small" x="58" y="64">Stok dari sinkron</text><text class="s-small" x="58" y="75">terakhir 08.23</text>
+          <rect class="s-soft" x="54" y="90" width="82" height="30" rx="4"/><text class="s-small" x="58" y="102" fill="var(--accent-deep)">Disimpan di HP</text><text class="s-small" x="58" y="113" fill="var(--accent-deep)">menunggu sinyal</text>
+          <use href="#nosignal" x="70" y="132" width="44" height="32"/>
+          <path class="s-line" d="M160 100 h26 m-8 -8 l8 8 l-8 8"/>
+          <use href="#cloudok" x="196" y="56" width="96" height="64"/>
+          <text class="s-small" x="196" y="140">Sinyal kembali:</text><text class="s-small" x="196" y="152">terkirim otomatis,</text><text class="s-small" x="196" y="164">tercatat tepat sekali</text>
+        </svg>
+        <div class="cap"><span class="no">Panel 5</span><h3>Tetap jalan tanpa sinyal</h3><p>Bila sinyal hilang, pesanan disimpan di HP dengan kode unik. Begitu sinyal kembali, pesanan terkirim sendiri dan server menolak kiriman ganda.</p><div class="chips"><span class="chip screen-code">S3b</span><span class="chip mood-warn">Menunggu sinyal</span></div></div>
+      </article>
+
+      <article class="panel">
+        <svg viewBox="0 0 320 200" role="img" aria-label="Pesanan saya dengan status diterima sebagian dan outlet ditandai selesai">
+          <rect class="s-fill" x="102" y="10" width="116" height="180" rx="12"/>
+          <rect class="s-screen" x="110" y="24" width="100" height="154" rx="2"/>
+          <rect class="s-deep" x="110" y="24" width="100" height="22"/><text class="s-white" x="116" y="38">Pesanan saya</text>
+          <rect x="116" y="52" width="88" height="34" rx="4" fill="var(--paper)"/><text class="s-small" x="120" y="64">Apotek Mojosongo</text>
+          <rect x="120" y="70" width="66" height="11" rx="5" fill="var(--warn-soft)"/><text class="s-small" x="124" y="79" fill="var(--warn)">Diterima sebagian</text>
+          <rect x="116" y="92" width="88" height="34" rx="4" fill="var(--paper)"/><text class="s-small" x="120" y="104">Apotek Sehat Jebres</text>
+          <rect x="120" y="110" width="40" height="11" rx="5" fill="var(--accent-soft)"/><text class="s-small" x="124" y="119" fill="var(--accent-deep)">Diterima</text>
+          <text class="s-small" x="116" y="142">Sari Kurma: diminta 10,</text><text class="s-small" x="116" y="153">diterima 3</text>
+          <text class="s-small" x="230" y="70">Outlet ditandai</text><text class="s-small" x="230" y="82">selesai, kembali</text><text class="s-small" x="230" y="94">ke kunjungan</text>
+          <path class="s-line" d="M262 104 v26 q0 10 -10 10 h-30"/>
+        </svg>
+        <div class="cap"><span class="no">Panel 6</span><h3>Lihat hasilnya</h3><p>Status dari server muncul: diterima, diterima sebagian, atau ditolak karena stok kurang. Outlet ditandai selesai dan sales kembali ke daftar kunjungan berikutnya.</p><div class="chips"><span class="chip screen-code">S4 · S4b (usulan)</span><span class="chip screen-code">S4c bila ditolak</span></div></div>
+      </article>
+
+    </div>
+  </section>
+
+  <footer>Sumber: Proposal_AntechAsync_v03_SIGAP (4 Nov 2026), user-flow.md, dan Figma "SIGAP · Hi-fi v2". Layar bertanda "usulan" sudah ada di Figma tetapi belum di purwarupa. Nama outlet, angka stok, dan jam adalah data contoh. Metode mengikuti modul "Create storyboards" (Google UX Design Certificate).</footer>
+</div>
+</body>
+</html>
