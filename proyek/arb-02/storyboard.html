@@ -7,25 +7,15 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;700&family=Roboto:wght@400;500;700&display=swap">
 <style>
-/* Layout: lembar storyboard — kepala dokumen, lalu dua papan panel bergrid 3 kolom (1 kolom di HP). */
+/* Satu tema terang, latar putih (permintaan tim). Layout: lembar storyboard — kepala dokumen, lalu dua papan panel bergrid 3 kolom (1 kolom di HP). */
 :root{
-  --bg:#f3f5f1; --paper:#ffffff; --ink:#1c2a22; --muted:#5b6a60; --line:#d6ded7;
+  --bg:#ffffff; --paper:#ffffff; --ink:#1c2a22; --muted:#5b6a60; --line:#d6ded7;
   --accent:#15803d; --accent-deep:#14532d; --accent-soft:#e3f3e8;
   --warn:#b45309; --warn-soft:#fdf0dc; --bad:#b91c1c; --bad-soft:#fbe4e4; --info:#075985; --info-soft:#e2f1fa;
   --skin:#e9b98f; --sketch:#2b3a31; --screen:#f2f5f8; --screen-row:#dfe6ea;
   --font-display:"Bitter",Georgia,"Times New Roman",serif;
   --font-body:"Roboto",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#121815; --paper:#1a221d; --ink:#e6eee8; --muted:#a3b2a8; --line:#2e3a33;
-  --accent:#4ade80; --accent-deep:#86efac; --accent-soft:#1d3326;
-  --warn:#f5b75a; --warn-soft:#3a2c17; --bad:#f87171; --bad-soft:#3b1d1d; --info:#7cc4ee; --info-soft:#15303f;
-  --skin:#d7a57c; --sketch:#cfe0d4; --screen:#24302a; --screen-row:#34443b; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#121815; --paper:#1a221d; --ink:#e6eee8; --muted:#a3b2a8; --line:#2e3a33;
-  --accent:#4ade80; --accent-deep:#86efac; --accent-soft:#1d3326;
-  --warn:#f5b75a; --warn-soft:#3a2c17; --bad:#f87171; --bad-soft:#3b1d1d; --info:#7cc4ee; --info-soft:#15303f;
-  --skin:#d7a57c; --sketch:#cfe0d4; --screen:#24302a; --screen-row:#34443b; color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.55;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:32px 56px}
