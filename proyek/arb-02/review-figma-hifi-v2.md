@@ -31,7 +31,7 @@ Usulan untuk admin gudang (5 Nov 2026):
 
 | Usulan | Layar baru | Masuk dari | Keluar ke |
 |---|---|---|---|
-| 6. Tambah produk baru ke master data (kode, nama, kategori, satuan, harga, no. BPOM wajib, stok minimum). Stok awal selalu 0; stok bertambah lewat S7a Barang masuk per batch agar kedaluwarsa tercatat | S7d · Tambah produk baru (duplikat S7c, contoh MDK02 Madu Daun Kelor, Rp60.000, TR-CONTOH-017) | S7, tombol baru "+ Produk baru" di antara "Penyesuaian (opname)" dan "+ Barang masuk" | Simpan produk / Batal → S7 |
+| 6. Tambah produk baru ke master data (kode, nama, kategori, satuan, harga, no. BPOM wajib, stok minimum). Stok awal selalu 0; stok bertambah lewat S7a Barang masuk per batch agar kedaluwarsa tercatat | S7d · Tambah produk baru (duplikat S7c, contoh MDK02 Madu Daun Kelor, Rp60.000, TR-CONTOH-017; kolom kode wajib diisi dan tidak lagi bergaya hanya-baca) | S7, tombol baru "+ Produk baru" di antara "Penyesuaian (opname)" dan "+ Barang masuk" | Simpan produk / Batal → S7 |
 
 Keputusan yang masih terbuka: apakah harga produk baru perlu disetujui direktur sebelum produk muncul di katalog sales (lihat celah "Kelola master data" di bawah). Di purwarupa, produk saat ini hanya bisa ditambah lewat Django admin (`/admin/`).
 
@@ -68,7 +68,7 @@ Masih terbuka:
 
 ## UI
 
-- Di S1, tombol "Outlet baru" menutupi kartu outlet ke-5.
+- Di S1, tombol mengambang "Outlet baru" menutupi kartu outlet ke-5. **Sudah diperbaiki 5 Nov 2026:** tombol mengambang dihapus; chip "5 outlet" di kepala kartu Kunjungan hari ini diganti chip hijau "+ Outlet baru" yang membuka S1a (jumlah outlet sudah tertulis di sapaan "5 kunjungan hari ini"). Kelima outlet kini terlihat utuh. Saat dibangun, beri area sentuh ≥44 px.
 - Halaman sales tidak punya menu profil/keluar.
 
 ## Celah alur (flow hole) per peran
