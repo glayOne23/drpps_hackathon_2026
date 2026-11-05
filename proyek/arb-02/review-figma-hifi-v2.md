@@ -71,6 +71,52 @@ Masih terbuka:
 - Di S1, tombol mengambang "Outlet baru" menutupi kartu outlet ke-5. **Sudah diperbaiki 5 Nov 2026:** tombol mengambang dihapus; chip "5 outlet" di kepala kartu Kunjungan hari ini diganti chip hijau "+ Outlet baru" yang membuka S1a (jumlah outlet sudah tertulis di sapaan "5 kunjungan hari ini"). Kelima outlet kini terlihat utuh. Saat dibangun, beri area sentuh ≥44 px.
 - ~~Halaman sales tidak punya menu profil/keluar.~~ **Sudah (5 Nov 2026):** layar baru **S1b · Profil & keluar (usulan)** (dari duplikat S2d) berisi akun, data tersimpan di HP, jumlah antrean, versi aplikasi, sinkron terakhir, dan tombol "Keluar dari SIGAP" (Danger) → S0. Peringatan: keluar menghapus data di HP, jadi antrean harus terkirim dulu. Dibuka dengan mengetuk sapaan "Halo, Budi" di S1; ← dan "Kembali ke kunjungan" → S1. Sapaan belum punya penanda visual bahwa ia bisa diketuk (mis. avatar).
 
+## Perubahan Figma 5 Nov 2026 (malam)
+
+Dibaca langsung dari file (teks semua layar dan semua sambungan prototype). Semua layar baru sudah punya tautan masuk dan sidebar kantor kini memuat Riwayat pembayaran, Riwayat barang masuk, dan Manajemen akun. Satu-satunya frame tanpa tautan masuk adalah "Catatan teknis PWA" (memang catatan).
+
+### Layar baru
+
+| Peran | Alur | Layar |
+|---|---|---|
+| Admin penjualan | ACC pesanan dari HP: detail → ubah isi (sebelum ACC) → ACC dengan ketentuan bayar tunai/tempo → siap bayar → catat pembayaran sebagian | S6j, S6q, S6f, S6n, S6o |
+| Admin penjualan | Pesanan dengan kekurangan: dikirim sebagian (urgent) → tandai selesai dengan alasan → selesai, tagihan dihitung ulang → buka kembali | S6h, S6g, S6i |
+| Admin penjualan | Filter perlu perhatian, ubah pesanan setelah kirim (tempo, sales PJ), riwayat pembayaran | S6k, S6p, S6m |
+| Admin gudang | Antrean kirim (hanya pesanan di-ACC) → proses kirim FEFO yang bisa diubah → kirim sebagian dengan karantina → Belum lengkap · urgent | S8, S8a, S8c, S8d |
+| Admin gudang | Telusur batch dengan penjelasan dan tombol Hubungi PIC; riwayat barang masuk dan detail penerimaan dengan selisih surat jalan | S8e, S7e, S7f |
+| Direktur | Manajemen akun: tambah (undangan WhatsApp), ubah (reset sandi, keluarkan perangkat), nonaktifkan (pindah outlet binaan); role & hak akses per modul | U1, U1a–c, U2, U2a |
+
+Aturan bisnis, model data, dan user flow sudah disesuaikan (5 Nov 2026 malam).
+
+### Tombol tanpa tujuan / alur yang belum ada
+
+| Prioritas | Temuan | Layar |
+|---|---|---|
+| T | **Sisi sales belum mengikuti alur ACC**: S4/S4a tidak punya status menunggu ACC, di-ACC, dikirim sebagian, selesai; tidak ada notifikasi saat admin mengubah pesanan (S6q menjanjikan "Sales Dewi mendapat notifikasi") | S4, S4a |
+| T | **Tolak pesanan** tidak punya layar alasan/kabar ke sales: di S6j tombolnya membuka S6f (modal ACC), di S6f langsung kembali ke S6 | S6j, S6f |
+| T | **Kirim susulan** dan **Detail** di daftar Belum lengkap belum tersambung | S8d |
+| T | **Mulai penarikan batch ini** (recall) belum punya layar | S8e |
+| S | "Kabari outlet" (S6h) dan "Lihat tagihan" (S6i) belum tersambung | S6h, S6i |
+| S | Retur disebut di S6p ("gunakan retur dari detail pesanan") tetapi belum dirancang | S6p |
+| S | Koreksi pembayaran oleh direktur (S6m) belum punya layar | S6m |
+| S | Nasib barang karantina (retur ke pemasok / pemusnahan) belum ada | S8c |
+| S | Pencatatan 3 botol susulan pemasok, cetak label batch, dan PO pembelian belum ada | S7f |
+| R | U1 "Kirim ulang" dan "Aktifkan", U1b "Kirim tautan reset" dan "Keluarkan", U2 "+ Peran baru", S6m/S7e "Unduh Excel" belum tersambung | U1, U1b, U2, S6m, S7e |
+| R | Pembayaran "Tunai via Budi" (S6m) berarti sales menerima uang, tetapi HP sales tidak punya pencatatan penagihan | S6m, S2 |
+
+### Data dan aturan yang bertentangan
+
+| Temuan | Saran |
+|---|---|
+| Dua aturan stok kurang hidup bersama: PS-1104 baris Sari Kurma "diterima 3 dari 10" otomatis saat tiba di server, sedangkan PS-1095 dengan stok 0 tetap bisa di-ACC dan kekurangannya jadi urgent | Pakai satu aturan: server mencadangkan sebanyak stok tersedia, sisanya jadi kekurangan yang diputuskan saat ACC (sudah ditulis di aturan bisnis sebagai **[pilih]**) |
+| S8c: "2 tetap dipesan (urgent)" dan "stok tersedia −2", tetapi S8d menulis "tersedia MHP: 0" | Kekurangan tidak menahan stok dipesan; barang rusak keluar dari fisik dan dipesan sekaligus, tersedia tetap |
+| Harga di S6q: MKL01 Rp45.000 dan MHP01 Rp30.000, padahal S7c MKL01 Rp75.000 dan S3 Madu Hitam Pahit Rp15.000 (total Rp480.000 tetap cocok dengan harga lama) | Samakan S6q dengan harga di S3/S7c |
+| U2a: "Ubah harga jual" dimatikan untuk admin gudang (harga diatur admin penjualan), tetapi S7c/S7d menaruh kolom harga di layar admin gudang | Pindahkan kolom harga ke layar milik admin penjualan, atau buat read-only di S7c/S7d |
+| Sidebar menampilkan semua menu (termasuk Manajemen akun) untuk Sari dan Joko, padahal U2 membatasi akses per peran | Sidebar mengikuti peran |
+| Toko Herbal Sumber Waras: di HP sales PS-1105 pukul 09.20 menunggu validasi, di S8 PS-1107 dipesan 09.12 "outlet baru, sudah divalidasi" | Samakan kode dan jam, atau jelaskan bahwa ini pesanan kedua |
+| Linimasa kantor: "Hari ini" = 2 Nov di tabel, tetapi PS-1095 "selesai 5 Nov 09.10" (S6i) | Pilih satu tanggal demo untuk semua layar |
+| PS-1095 sudah dibayar Rp210.000 (S6o) lalu tagihan menjadi Rp210.000 (S6i), tetapi S6i tidak menyebut lunas | Tampilkan "Lunas" di S6i |
+
 ## Celah alur (flow hole) per peran
 
 Situasi nyata yang belum punya alur, baik di desain maupun di proposal. Prioritas: **T** = tinggi (mengganggu tujuan utama proposal), **S** = sedang, **R** = rendah / setelah MVP.
@@ -90,10 +136,10 @@ Situasi nyata yang belum punya alur, baik di desain maupun di proposal. Priorita
 | Celah | Kenapa penting | Pri |
 |---|---|---|
 | **Outlet baru ditolak** (S5e punya tombol "Tolak") | Tidak jelas nasib pesanan PS-1105 yang tertahan dan bagaimana sales diberi tahu. | T |
-| **Kelola akun pengguna & penugasan outlet ke sales** | Proposal memakai hak akses per peran dan "sales hanya melihat outlet miliknya", tetapi tidak ada layar membuat akun, menonaktifkan sales keluar, atau memindahkan outlet antar-sales. | T |
+| ~~Kelola akun pengguna & penugasan outlet ke sales~~ | **Sudah dirancang 5 Nov 2026 (U1–U2a)**: tambah, ubah, nonaktifkan dengan pindah outlet binaan, hak akses per peran. | — |
 | **Reset kata sandi** | L1a menyebut "kata sandi sementara dibuat direktur", tetapi direktur tidak punya layar untuk itu. | S |
 | **Pesanan via telepon/WA langsung dari outlet** (tanpa sales) | Pesanan masuk kantor tidak punya form; akan dicatat di luar sistem lagi. | S |
-| **Ubah jumlah pesanan sebelum kirim** | Hanya ada batal penuh (S6a); koreksi kecil memaksa batal lalu pesan ulang. | S |
+| ~~Ubah jumlah pesanan sebelum kirim~~ | **Sudah dirancang 5 Nov 2026**: S6q (sebelum ACC) dan S6p (setelah kirim, tanpa ubah item). | — |
 | **Piutang menunggak → tahan pesanan baru** | Tidak ada aturan/alur blokir outlet yang lewat jatuh tempo. | R |
 
 ### Admin gudang
@@ -101,7 +147,7 @@ Situasi nyata yang belum punya alur, baik di desain maupun di proposal. Priorita
 |---|---|---|
 | **Recall batch setelah telusur** | S8 menampilkan outlet penerima, tetapi tidak ada tindak lanjut: tandai batch "ditarik", blokir dari FEFO, catat barang kembali. Ini inti klaim CPOTB di proposal. | T |
 | **Barang rusak / kedaluwarsa di gudang (pemusnahan)** | Opname S7b hanya "penyesuaian"; perlu jenis mutasi pemusnahan dengan alasan dan batch. | S |
-| **Pengiriman sebagian / gagal kirim** (outlet tutup, ditolak di tempat) | Konfirmasi kirim S8a bersifat sekali jalan; tidak ada alur kirim ulang atau barang kembali. | S |
+| **Gagal kirim** (outlet tutup, ditolak di tempat) | Kirim sebagian karena barang di gudang kurang/rusak sudah dirancang (S8c, S8d); barang yang kembali dari outlet belum. | S |
 | **Bukti serah terima / surat jalan** | Tidak ada cetak surat jalan atau tanda terima outlet sebagai bukti kirim. | R |
 
 ### Direktur

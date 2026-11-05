@@ -116,6 +116,8 @@ Direktur melihat tiga laporan, ditambah daftar stok menipis dan daftar barang me
 
 ## 5. Aturan stok
 
+> **Pembaruan 5 Nov 2026 (desain Figma):** semua pesanan dari HP kini melewati **ACC admin penjualan** (ketentuan bayar tunai/tempo) sebelum masuk antrean gudang, stok kurang dicatat sebagai **kekurangan** (bukan langsung ditolak), dan gudang bisa **kirim sebagian** dengan barang rusak ke karantina. Ini mengubah tabel dan butir "persetujuan hanya untuk pengecualian" di bawah. Aturan yang berlaku untuk kode ada di `03-aturan-bisnis.md` repo pengembangan (sigap-arb02); keputusan yang masih terbuka di `09-celah-dan-keputusan-terbuka.md`.
+
 Setiap produk punya dua angka: **stok fisik** (barang yang ada di gudang) dan **stok dipesan** (sudah dipesan, belum dikirim). Sales hanya melihat **stok tersedia = fisik − dipesan**.
 
 | Kejadian | Oleh | Stok fisik | Stok dipesan | Stok tersedia | Batch |
